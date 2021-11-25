@@ -1,6 +1,6 @@
 package android.findandlearnapp.dictionary.data
 
-import android.dictionaryandcardsapp.utils.INetworkStatus
+import android.findandlearnapp.utils.INetworkStatus
 import io.reactivex.rxjava3.core.Single
 
 class RetrofitWordTranslationRepo(

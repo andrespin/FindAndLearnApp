@@ -1,4 +1,4 @@
-package android.dictionaryandcardsapp.utils
+package android.findandlearnapp.utils
 
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single

@@ -1,6 +1,7 @@
-package android.dictionaryandcardsapp.utils
+package android.findandlearnapp.utils
 
 import android.content.Context
+import android.findandlearnapp.utils.INetworkStatus
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
