@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movies_graph"
+    app:startDestination="@id/movies">
+
+    <fragment
+        android:id="@+id/movies"
+        android:name="android.findandlearnapp.dictionary.DictionaryFragment"
+        android:label="MoviesFragment"
+        tools:layout="@layout/fragment_dictionary">
+    </fragment>
+
+</navigation>
