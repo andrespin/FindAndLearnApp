@@ -19,26 +19,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/txtWord"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_width="300dp"
+        android:layout_height="18dp"
         android:layout_marginLeft="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewFindWord"
-        tools:text="Word"/>
+        tools:text="Word" />
 
     <TextView
         android:id="@+id/txtPhonetics"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_width="300dp"
+        android:layout_height="18dp"
         android:layout_marginLeft="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtWord"
         tools:text="Phonetics" />
@@ -68,6 +64,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent" />
 
-
+    <ImageView
+        android:id="@+id/imgPutWordToDb"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_plus"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/txtPhonetics"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchViewFindWord" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

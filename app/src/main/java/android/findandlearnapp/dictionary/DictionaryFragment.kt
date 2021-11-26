@@ -66,7 +66,6 @@ class DictionaryFragment : BaseFragment() {
         }
     }
 
-
     private fun showViewWorking() {
         binding.progressBarRound.visibility = View.GONE
     }
