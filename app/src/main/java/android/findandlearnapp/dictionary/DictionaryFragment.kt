@@ -50,12 +50,6 @@ class DictionaryFragment : BaseFragment() {
             is AppState.Success -> {
                 showViewWorking()
                 val data = appState.data
-                println(data)
-                try {
-                    //   binding.txtWord.text = data[0].textOrig
-                } catch (e: Exception) {
-                    Log.e("Exception", e.message!!)
-                }
                 binding.txtWord.text = data.textOrig
                 binding.txtPhonetics.text = data.txtPhonetics
                 adapter.setData(data.wordDescriptions)
@@ -90,11 +84,12 @@ class DictionaryFragment : BaseFragment() {
         binding.searchViewFindWord.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.translateTheWord(query ?: "")
+                Log.d("SearchView status", "onQueryTextSubmit")
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                println("onQueryTextChange")
+                Log.d("SearchView status", "onQueryTextChanged")
                 return false
             }
         })

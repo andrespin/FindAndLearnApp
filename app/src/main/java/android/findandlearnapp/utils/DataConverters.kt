@@ -1,6 +1,7 @@
 package android.findandlearnapp.utils
 
 import android.findandlearnapp.dictionary.data.*
+import android.util.Log
 import java.lang.IndexOutOfBoundsException
 
 fun convertToWordTranslations(listWordsTr: List<Tr>): List<WordTranslations> {
@@ -20,14 +21,14 @@ fun convertToWord(response: WordTranslationServerResponse): Word {
     var text = ""
     var ts = ""
     try {
-        text = response.def[0].text
-        ts = response.def[0].ts
+        text = response.def[0]?.text ?: ""
+        ts = response.def[0]?.ts ?: ""
     } catch (e: IndexOutOfBoundsException) {
         e.printStackTrace()
     }
     return Word(
         text,
-        ts,
+        ts ,
         convertToWordDescription(response)
     )
 }
