@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.findandlearnapp.R
 import android.findandlearnapp.databinding.FragmentDictionaryBinding
+import android.findandlearnapp.dictionary.adapter.DictionaryAdapter
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 
@@ -16,6 +17,8 @@ class DictionaryFragment : Fragment() {
     private lateinit var binding: FragmentDictionaryBinding
 
     private lateinit var viewModel: DictionaryViewModel
+
+    private val adapter: DictionaryAdapter by lazy { DictionaryAdapter() }
 
 
     override fun onCreateView(
@@ -35,7 +38,7 @@ class DictionaryFragment : Fragment() {
 
         binding.searchViewFindWord.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.getWordTranslationEnRu(query ?: "")
+                viewModel.translateTheWord(query ?: "")
                 return false
             }
 

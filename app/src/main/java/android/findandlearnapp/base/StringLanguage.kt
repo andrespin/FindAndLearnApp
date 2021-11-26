@@ -18,9 +18,9 @@ fun getLanguageOfWord(string: String): StringLanguage {
             if (letter in 'А'..'Я' || letter in 'а'..'я') {
                 map["isRussian"] = true
             }
-            if (letter !in 'А'..'Я' && letter !in 'а'..'я' && letter !in 'A'..'Z' && letter !in 'a'..'z') {
-                map["NotIdentified"] = true
-            }
+//            if (letter !in 'А'..'Я' && letter !in 'а'..'я' && letter !in 'A'..'Z' && letter !in 'a'..'z') {
+//                map["NotIdentified"] = true
+//            }
         }
     }
     if (map["isRussian"]!! && map["isEnglish"]!! || map["NotIdentified"]!!) return StringLanguage.NotIdentified
