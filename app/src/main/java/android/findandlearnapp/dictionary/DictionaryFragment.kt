@@ -41,6 +41,7 @@ class DictionaryFragment : BaseFragment() {
         viewModel.liveDataImgPutWordToDb.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let {
                 binding.imgPutWordToDb.visibility = it.visibility
+                binding.imgPutWordToDb.setImageResource(it.source)
                 println(it)
             }
         })
@@ -97,6 +98,7 @@ class DictionaryFragment : BaseFragment() {
         })
 
         binding.imgPutWordToDb.setOnClickListener {
+            viewModel.addWordToDb()
 
         }
 

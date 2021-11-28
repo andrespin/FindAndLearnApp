@@ -1,5 +1,6 @@
 package android.findandlearnapp.dictionary
 
+import android.findandlearnapp.R
 import android.findandlearnapp.base.BaseViewModel
 import android.findandlearnapp.base.StringLanguage
 import android.findandlearnapp.base.getLanguageOfWord
@@ -18,6 +19,8 @@ import javax.inject.Inject
 
 class DictionaryViewModel : BaseViewModel<AppState>() {
 
+    private var isWordAdded = false
+
     val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
 
     val liveDataImgPutWordToDb = MutableLiveData<Event<AddWordToDbImageData>>()
@@ -30,8 +33,20 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
     }
 
     fun addWordToDb() {
-        // TODO database
+        // TODO Add word to Db
+        isWordAdded = checkIfAddedToDb()
+        if (isWordAdded) {
+            liveDataImgPutWordToDb.postValue(
+                Event(
+                    AddWordToDbImageData(
+                        View.VISIBLE,
+                        R.drawable.ic_tick
+                    )
+                )
+            )
+        }
     }
+
 
     @Inject
     lateinit var wordTranslationRepo: IWordTranslationRepo
@@ -51,9 +66,23 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
                             word
                         )
                     )
-                    liveDataImgPutWordToDb.postValue(Event(AddWordToDbImageData(View.VISIBLE)))
+                    liveDataImgPutWordToDb.postValue(
+                        Event(
+                            AddWordToDbImageData(
+                                View.VISIBLE,
+                                R.drawable.ic_plus
+                            )
+                        )
+                    )
                 } else {
-                    liveDataImgPutWordToDb.postValue(Event(AddWordToDbImageData(View.GONE)))
+                    liveDataImgPutWordToDb.postValue(
+                        Event(
+                            AddWordToDbImageData(
+                                View.GONE,
+                                R.drawable.ic_plus
+                            )
+                        )
+                    )
                     _mutableLiveData.postValue(
                         AppState.Success(
                             word
@@ -89,6 +118,10 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
             )
     }
 
+    private fun checkIfAddedToDb(): Boolean {
+        // TODO Find word in db
+        return true
+    }
 
     override fun handleError(error: Throwable) {
         _mutableLiveData.postValue(AppState.Error(error))

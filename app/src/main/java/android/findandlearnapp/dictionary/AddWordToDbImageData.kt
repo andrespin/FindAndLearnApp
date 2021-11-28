@@ -1,3 +1,3 @@
 package android.findandlearnapp.dictionary
 
-data class AddWordToDbImageData(val visibility: Int)
+data class AddWordToDbImageData(val visibility: Int, val source: Int)
