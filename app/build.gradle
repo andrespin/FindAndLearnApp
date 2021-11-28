@@ -73,4 +73,9 @@ dependencies {
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     implementation "com.paulrybitskyi.persistentsearchview:persistentsearchview:1.1.4"
 
+    // Room
+    implementation "androidx.room:room-runtime:2.3.0"
+    implementation "androidx.room:room-ktx:2.3.0"
+    implementation "androidx.room:room-rxjava2:2.3.0"
+
 }
