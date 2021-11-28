@@ -10,6 +10,5 @@ class DictionaryViewHolder(private val vb: DictionaryFragmentRecyclerviewItemBin
     fun bind(response: WordDescription) {
         vb.txtItemPartOfSpeech.text = response.partOfSpeech
         vb.txtItemWordTranslation.text = response.wordTranslationsOneLine
-
     }
 }

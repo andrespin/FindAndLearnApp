@@ -2,11 +2,9 @@ package android.findandlearnapp.dictionary
 
 import android.findandlearnapp.App
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.findandlearnapp.R
 import android.findandlearnapp.base.BaseFragment
 import android.findandlearnapp.databinding.FragmentDictionaryBinding
 import android.findandlearnapp.dictionary.adapter.DictionaryAdapter
@@ -39,8 +37,13 @@ class DictionaryFragment : BaseFragment() {
         viewModel = ViewModelProvider(this).get(DictionaryViewModel::class.java).apply {
             App.instance.appComponent.inject(this)
         }
-
         viewModel.liveDataForViewToObserve.observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.liveDataImgPutWordToDb.observe(viewLifecycleOwner, { event ->
+            event?.getContentIfNotHandledOrReturnNull()?.let {
+                binding.imgPutWordToDb.visibility = it.visibility
+                println(it)
+            }
+        })
         initListeners()
     }
 
@@ -92,6 +95,11 @@ class DictionaryFragment : BaseFragment() {
                 return false
             }
         })
+
+        binding.imgPutWordToDb.setOnClickListener {
+
+        }
+
     }
 
     companion object {

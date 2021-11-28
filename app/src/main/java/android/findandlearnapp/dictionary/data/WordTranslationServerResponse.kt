@@ -8,7 +8,8 @@ data class WordTranslationServerResponse(
 data class Word(
     val textOrig: String,
     val txtPhonetics: String,
-    val wordDescriptions: List<WordDescription>
+    val wordDescriptions: List<WordDescription>,
+    val isFound: Boolean
 )
 
 data class WordDescription(

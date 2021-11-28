@@ -20,16 +20,19 @@ fun convertToWordTranslations(listWordsTr: List<Tr>): List<WordTranslations> {
 fun convertToWord(response: WordTranslationServerResponse): Word {
     var text = ""
     var ts = ""
+    var isFound = true
     try {
         text = response.def[0]?.text ?: ""
         ts = response.def[0]?.ts ?: ""
     } catch (e: IndexOutOfBoundsException) {
         e.printStackTrace()
+        isFound = false
     }
     return Word(
         text,
         ts ,
-        convertToWordDescription(response)
+        convertToWordDescription(response),
+        isFound
     )
 }
 
