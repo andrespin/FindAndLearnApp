@@ -1,17 +1,20 @@
 package android.findandlearnapp.database
 
 import androidx.room.*
-import io.reactivex.Completable
-import io.reactivex.Single
+//import io.reactivex.Completable
+//import io.reactivex.Single
+
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface WordDao {
 
     @Insert
-    fun insertWord(word: WordEntity)
+    fun insertWord(wordEntity: WordEntity)
 
     @Delete
-    fun deleteWord(word: WordEntity): Completable
+    fun deleteWord(wordEntity: WordEntity): Completable
 
     @Query("SELECT * FROM words_table")
     fun getAllWords(): Single<List<WordEntity>>
@@ -21,6 +24,5 @@ interface WordDao {
 
     @Query("SELECT * FROM words_table WHERE textOrig=:textOrig")
     fun getWord(textOrig: String): Single<WordEntity>
-
 
 }

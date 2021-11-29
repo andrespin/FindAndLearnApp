@@ -6,13 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.findandlearnapp.base.BaseFragment
+import android.findandlearnapp.database.WordDao
+import android.findandlearnapp.database.WordDatabase
 import android.findandlearnapp.databinding.FragmentDictionaryBinding
 import android.findandlearnapp.dictionary.adapter.DictionaryAdapter
 import android.findandlearnapp.dictionary.data.AppState
+import android.findandlearnapp.dictionary.data.Word
 import android.util.Log
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class DictionaryFragment : BaseFragment() {
 
@@ -20,12 +26,15 @@ class DictionaryFragment : BaseFragment() {
 
     private lateinit var viewModel: DictionaryViewModel
 
+    private lateinit var word: Word
+
     private val adapter: DictionaryAdapter by lazy { DictionaryAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return FragmentDictionaryBinding.inflate(inflater, container, false).also {
             binding = it
         }.root
@@ -38,6 +47,8 @@ class DictionaryFragment : BaseFragment() {
             App.instance.appComponent.inject(this)
         }
         viewModel.liveDataForViewToObserve.observe(viewLifecycleOwner, { renderData(it) })
+
+
         viewModel.liveDataImgPutWordToDb.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let {
                 binding.imgPutWordToDb.visibility = it.visibility
@@ -54,6 +65,7 @@ class DictionaryFragment : BaseFragment() {
             is AppState.Success -> {
                 showViewWorking()
                 val data = appState.data
+                word = data
                 binding.txtWord.text = data.textOrig
                 binding.txtPhonetics.text = data.txtPhonetics
                 adapter.setData(data.wordDescriptions)
@@ -98,7 +110,7 @@ class DictionaryFragment : BaseFragment() {
         })
 
         binding.imgPutWordToDb.setOnClickListener {
-            viewModel.addWordToDb()
+            viewModel.addWordToDb(word)
 
         }
 

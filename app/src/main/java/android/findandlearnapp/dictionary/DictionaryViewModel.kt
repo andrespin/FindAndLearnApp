@@ -1,9 +1,12 @@
 package android.findandlearnapp.dictionary
 
+
 import android.findandlearnapp.R
 import android.findandlearnapp.base.BaseViewModel
 import android.findandlearnapp.base.StringLanguage
 import android.findandlearnapp.base.getLanguageOfWord
+import android.findandlearnapp.database.WordDao
+import android.findandlearnapp.database.WordEntity
 import android.findandlearnapp.dictionary.data.AppState
 import android.findandlearnapp.dictionary.data.IWordTranslationRepo
 import android.findandlearnapp.dictionary.data.Word
@@ -14,12 +17,16 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
+
 
 class DictionaryViewModel : BaseViewModel<AppState>() {
 
     private var isWordAdded = false
+
+    private lateinit var wordDao: WordDao
 
     val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
 
@@ -32,7 +39,69 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
             getWordTranslationEnRu(word)
     }
 
-    fun addWordToDb() {
+    @Inject
+    lateinit var provideWordDao: WordDao
+
+    fun addWordToDb(word: Word) {
+
+        val wordEntity = WordEntity(word.textOrig, word.txtPhonetics)
+
+        Log.d("Status", "Works")
+
+
+        /*
+                bookDao.getAllBooks().subscribeOn(Schedulers.io())
+            .subscribe({ repos ->
+                println("repos $repos")
+            },
+                {
+                    Log.d("Error: ", it.message!!)
+                })
+         */
+
+        provideWordDao.getAllWords().subscribeOn(Schedulers.io())
+            .subscribe({ repos ->
+                if (!repos.contains(WordEntity(word.textOrig, word.txtPhonetics))) {
+                    Log.d("Status", "Does not contain")
+                    Completable.fromRunnable {
+                        provideWordDao.insertWord(WordEntity(word.textOrig, word.txtPhonetics))
+                    }.subscribeOn(Schedulers.io()).subscribe()
+                } else {
+                    Log.d("Status", "Contain")
+                }
+
+                println(repos)
+            }, {
+                Log.d("Error: ", it.message!!)
+                handleError(it)
+            }
+            )
+
+//        var words = provideWordDao.getAllWords()
+
+        /*
+        .observeOn(Schedulers.io())
+            .subscribe({ repos ->
+                _mutableLiveData.postValue(
+                    AppState.Success(
+                        convertToWord(repos)
+                    )
+                )
+                println(repos)
+            }, {
+                Log.d("Error: ", it.message!!)
+                handleError(it)
+            }
+            )
+         */
+
+
+        /*
+                Completable.fromRunnable {
+            bookDao.insertBook(RxBook(3, "name", "auth"))
+        }.subscribeOn(Schedulers.io()).subscribe()
+         */
+
         // TODO Add word to Db
         isWordAdded = checkIfAddedToDb()
         if (isWordAdded) {
