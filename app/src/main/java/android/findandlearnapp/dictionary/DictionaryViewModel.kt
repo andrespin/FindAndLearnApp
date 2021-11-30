@@ -67,7 +67,6 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
     private fun deleteWordFromDb(word: Word) {
         provideWordRepo.deleteWordFromDatabase(word.textOrig)
         setAddWordImage(View.VISIBLE, R.drawable.ic_plus, wordNotAdded)
-
     }
 
 
@@ -110,6 +109,8 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
     private fun findWordInDatabase(word: Word) {
 
         println("findWordInDatabase bef")
+
+        println("word = " + word)
 
         provideWordRepo.findWordInDatabase(word.textOrig)
             .observeOn(Schedulers.io())
