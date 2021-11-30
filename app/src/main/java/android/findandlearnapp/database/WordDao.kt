@@ -5,6 +5,7 @@ import androidx.room.*
 //import io.reactivex.Single
 
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
 @Dao
@@ -23,6 +24,9 @@ interface WordDao {
     fun deleteAllWords(): Completable
 
     @Query("SELECT * FROM words_table WHERE textOrig=:textOrig")
-    fun getWord(textOrig: String): Single<WordEntity>
+    fun getWord(textOrig: String): Maybe<WordEntity>
+
+//    @Query("SELECT * FROM words_table WHERE textOrig=:textOrig")
+//    fun getWord(textOrig: String): Single<WordEntity>
 
 }
