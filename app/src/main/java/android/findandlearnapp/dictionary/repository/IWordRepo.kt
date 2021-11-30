@@ -15,7 +15,7 @@ interface IWordRepo {
 
     fun addWordToDatabase(wordEntity: WordEntity)
 
-    fun deleteWordFromDatabase(wordEntity: WordEntity)
+    fun deleteWordFromDatabase(textOrig: String)
 
     fun deleteAllWordsFromDatabase()
 

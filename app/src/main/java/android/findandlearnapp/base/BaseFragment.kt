@@ -4,6 +4,8 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment : Fragment() {
 
+    protected var isWordAdded = false
+
     protected fun showAlertDialog(title: String?, message: String?) {
         AlertDialogFragment.newInstance(title, message)
             .show(requireActivity().supportFragmentManager, DIALOG_FRAGMENT_TAG)

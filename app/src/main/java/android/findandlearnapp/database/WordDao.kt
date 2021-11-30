@@ -15,7 +15,7 @@ interface WordDao {
     fun insertWord(wordEntity: WordEntity)
 
     @Delete
-    fun deleteWord(wordEntity: WordEntity): Completable
+    fun deleteWord(wordEntity: WordEntity)
 
     @Query("SELECT * FROM words_table")
     fun getAllWords(): Single<List<WordEntity>>

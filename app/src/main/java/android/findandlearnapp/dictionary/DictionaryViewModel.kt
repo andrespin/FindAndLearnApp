@@ -40,53 +40,36 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
             getWordTranslationEnRu(word)
     }
 
-//    @Inject
-//    lateinit var provideWordDao: WordDao
-
     @Inject
     lateinit var provideWordRepo: IWordRepo
 
-    fun addWordToDb(word: Word) {
+    fun wordsManager(word: Word, isAdded: Boolean) =
+        if (isAdded)
+            deleteWordFromDb(word)
+        else
+            addWordToDb(word)
 
-        val wordEntity = WordEntity(word.textOrig, word.txtPhonetics)
-
-        Log.d("Status", "Works")
-
+    private fun addWordToDb(word: Word) {
         provideWordRepo.addWordToDatabase(WordEntity(word.textOrig, word.txtPhonetics))
+        setAddWordImage(View.VISIBLE, R.drawable.ic_tick, wordAdded)
 
-//        provideWordDao.getAllWords().subscribeOn(Schedulers.io())
-//            .subscribe({ repos ->
-//                if (!repos.contains(WordEntity(word.textOrig, word.txtPhonetics))) {
-//                    Log.d("Status", "Does not contain")
-//                    Completable.fromRunnable {
-//                        provideWordDao.insertWord(WordEntity(word.textOrig, word.txtPhonetics))
-//                    }.subscribeOn(Schedulers.io()).subscribe()
-//                } else {
-//                    Log.d("Status", "Contain")
-//                }
-//
-//                println(repos)
+
+//        provideWordRepo.findWordInDatabase(word.textOrig)
+//            .subscribeOn(Schedulers.io())
+//            .subscribe({
+//                setAddWordImage(View.VISIBLE, R.drawable.ic_tick, wordAdded)
 //            }, {
-//                Log.d("Error: ", it.message!!)
 //                handleError(it)
-//            }
-//            )
-
-
-        // TODO Add word to Db
-        isWordAdded = checkIfAddedToDb()
-        if (isWordAdded) {
-            liveDataImgPutWordToDb.postValue(
-                Event(
-                    AddWordToDbImageData(
-                        View.VISIBLE,
-                        R.drawable.ic_tick
-                    )
-                )
-            )
-        }
+//            })
 
     }
+
+    private fun deleteWordFromDb(word: Word) {
+        provideWordRepo.deleteWordFromDatabase(word.textOrig)
+        setAddWordImage(View.VISIBLE, R.drawable.ic_plus, wordNotAdded)
+
+    }
+
 
     @Inject
     lateinit var wordTranslationRepo: IWordTranslationRepo
@@ -107,9 +90,9 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
                         )
                     )
                     findWordInDatabase(word)
-                    setAddWordImage(View.VISIBLE, R.drawable.ic_plus)
+                    setAddWordImage(View.VISIBLE, R.drawable.ic_plus, wordNotAdded)
                 } else {
-                    setAddWordImage(View.GONE, R.drawable.ic_plus)
+                    setAddWordImage(View.GONE, R.drawable.ic_plus, wordNotAdded)
                     _mutableLiveData.postValue(
                         AppState.Success(
                             word
@@ -132,36 +115,10 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
             .observeOn(Schedulers.io())
             .subscribe {
                 println("findWordInDatabase" + it)
-
-                setAddWordImage(View.VISIBLE, R.drawable.ic_tick)
-
-
+                setAddWordImage(View.VISIBLE, R.drawable.ic_tick, wordAdded)
             }
 
     }
-
-    /*
-    db.employeeDao().getById(1)
-       .subscribeOn(Schedulers.io())
-       .observeOn(AndroidSchedulers.mainThread())
-       .subscribe(new DisposableMaybeObserver<Employee>() {
-           @Override
-           public void onSuccess(Employee employee) {
-               // ...
-           }
-
-           @Override
-           public void onError(Throwable e) {
-               // ...
-           }
-
-           @Override
-           public void onComplete() {
-               // ...
-           }
-       });
-     */
-
 
     private fun getWordTranslationRuEn(word: String) {
         _mutableLiveData.value = AppState.Loading(null)
@@ -194,12 +151,13 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
         _mutableLiveData.postValue(AppState.Error(error))
     }
 
-    private fun setAddWordImage(visibility: Int, drawable: Int) {
+    private fun setAddWordImage(visibility: Int, drawable: Int, isWordAdded: Boolean) {
         liveDataImgPutWordToDb.postValue(
             Event(
                 AddWordToDbImageData(
                     visibility,
-                    drawable
+                    drawable,
+                    isWordAdded
                 )
             )
         )

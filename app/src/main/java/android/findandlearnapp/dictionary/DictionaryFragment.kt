@@ -1,6 +1,7 @@
 package android.findandlearnapp.dictionary
 
 import android.findandlearnapp.App
+import android.findandlearnapp.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,6 +54,7 @@ class DictionaryFragment : BaseFragment() {
             event?.getContentIfNotHandledOrReturnNull()?.let {
                 binding.imgPutWordToDb.visibility = it.visibility
                 binding.imgPutWordToDb.setImageResource(it.source)
+                isWordAdded = it.isWordAdded
                 println(it)
             }
         })
@@ -110,8 +112,14 @@ class DictionaryFragment : BaseFragment() {
         })
 
         binding.imgPutWordToDb.setOnClickListener {
-            viewModel.addWordToDb(word)
 
+            // setImageResource
+
+            viewModel.wordsManager(word, isWordAdded)
+
+            println("binding.imgPutWordToDb.drawable $binding.imgPutWordToDb.resources")
+
+          //  viewModel.addWordToDb(word)
         }
 
     }

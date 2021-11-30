@@ -8,6 +8,10 @@ abstract class BaseViewModel<T : AppState>(
     protected open val _mutableLiveData: MutableLiveData<T> = MutableLiveData()
 ) : ViewModel(){
 
+    val wordAdded = true
+
+    val wordNotAdded = false
+
     abstract fun handleError(error: Throwable)
 
 }
