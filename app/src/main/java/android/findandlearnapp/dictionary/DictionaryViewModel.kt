@@ -47,6 +47,7 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
             addWordToDb(word)
 
     private fun addWordToDb(word: Word) {
+
         val wordEntity = convertToWordEntity(word)
         provideWordRepo.addWordToDatabase(wordEntity)
         setAddWordImage(View.VISIBLE, R.drawable.ic_tick, wordAdded)
@@ -64,7 +65,6 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
     private fun deleteWordFromDb(word: Word) {
         provideWordRepo.deleteWordFromDatabase(word.textOrig)
         setAddWordImage(View.VISIBLE, R.drawable.ic_plus, wordNotAdded)
-        doSmth()
     }
 
 
