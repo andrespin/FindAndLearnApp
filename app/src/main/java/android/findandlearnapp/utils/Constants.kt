@@ -6,3 +6,5 @@ const val yandexDictionaryKey =
 const val word_translation_from_English_to_Russian = "en-ru"
 
 const val word_translation_from_Russian_to_English = "ru-en"
+
+const val EmptyField = "No data"

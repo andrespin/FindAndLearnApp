@@ -11,14 +11,11 @@ import android.findandlearnapp.dictionary.data.AppState
 import android.findandlearnapp.dictionary.data.IWordTranslationRepo
 import android.findandlearnapp.dictionary.data.Word
 import android.findandlearnapp.dictionary.repository.IWordRepo
-import android.findandlearnapp.utils.convertToWord
-import android.findandlearnapp.utils.word_translation_from_English_to_Russian
-import android.findandlearnapp.utils.yandexDictionaryKey
+import android.findandlearnapp.utils.*
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -50,9 +47,9 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
             addWordToDb(word)
 
     private fun addWordToDb(word: Word) {
-        provideWordRepo.addWordToDatabase(WordEntity(word.textOrig, word.txtPhonetics))
+        val wordEntity = convertToWordEntity(word)
+        provideWordRepo.addWordToDatabase(wordEntity)
         setAddWordImage(View.VISIBLE, R.drawable.ic_tick, wordAdded)
-
 
 //        provideWordRepo.findWordInDatabase(word.textOrig)
 //            .subscribeOn(Schedulers.io())
@@ -67,6 +64,7 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
     private fun deleteWordFromDb(word: Word) {
         provideWordRepo.deleteWordFromDatabase(word.textOrig)
         setAddWordImage(View.VISIBLE, R.drawable.ic_plus, wordNotAdded)
+        doSmth()
     }
 
 
@@ -125,7 +123,7 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
         _mutableLiveData.value = AppState.Loading(null)
         wordTranslationRepo.getWordTranslationRepo(
             yandexDictionaryKey,
-            word_translation_from_English_to_Russian,
+            word_translation_from_Russian_to_English,
             word
         ).observeOn(Schedulers.io())
             .subscribe({ repos ->
@@ -142,11 +140,6 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
             )
     }
 
-    private fun checkIfAddedToDb(): Boolean {
-
-
-        return true
-    }
 
     override fun handleError(error: Throwable) {
         _mutableLiveData.postValue(AppState.Error(error))
