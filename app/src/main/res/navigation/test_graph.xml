@@ -2,14 +2,16 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dictionary_graph"
-    app:startDestination="@id/dictionary">
+    android:id="@+id/test_graph"
+    app:startDestination="@id/test">
 
     <fragment
-        android:id="@+id/dictionary"
-        android:name="android.findandlearnapp.dictionary.DictionaryFragment"
+        android:id="@+id/test"
+        android:name="android.findandlearnapp.words_test.TestFragment"
         android:label="MoviesFragment"
-        tools:layout="@layout/fragment_dictionary">
+        tools:layout="@layout/fragment_test">
+
     </fragment>
 
 </navigation>
+
