@@ -23,4 +23,6 @@ interface IWordRepo {
 
     fun findWordInDatabase(textOrig: String): Maybe<WordEntity>
 
+    fun getAllWords(): Single<List<WordEntity>>
+
 }

@@ -22,10 +22,6 @@ import javax.inject.Inject
 
 class DictionaryViewModel : BaseViewModel<AppState>() {
 
-    private var isWordAdded = false
-
-    private lateinit var wordDao: WordDao
-
     val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
 
     val liveDataImgPutWordToDb = MutableLiveData<Event<AddWordToDbImageData>>()

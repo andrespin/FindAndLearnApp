@@ -65,6 +65,8 @@ class WordRepo @Inject constructor(
         }.subscribeOn(Schedulers.io()).subscribe()
     }
 
+    override fun getAllWords(): Single<List<WordEntity>> = wordDao.getAllWords()
+
     private fun seeWords() {
         wordDao.getAllWords().subscribeOn(Schedulers.io())
             .subscribe({ repos ->

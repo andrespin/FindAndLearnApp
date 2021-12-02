@@ -11,5 +11,5 @@
         android:label="Bottom Nav"
         tools:layout="@layout/fragment_bottom_nav">
     </fragment>
-    
+
 </navigation>
