@@ -6,15 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.findandlearnapp.R
-import android.findandlearnapp.database.WordEntity
-import android.findandlearnapp.databinding.FragmentDictionaryBinding
 import android.findandlearnapp.databinding.FragmentWordsManagerBinding
-import android.findandlearnapp.dictionary.DictionaryViewModel
-import android.findandlearnapp.dictionary.adapter.DictionaryAdapter
+import android.findandlearnapp.dictionary.repository.IWordRepo
+import android.findandlearnapp.utils.addedWordIsChecked
+import android.findandlearnapp.utils.addedWordIsNotChecked
 import android.findandlearnapp.words_manager.adapter.WordsManagerAdapter
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import javax.inject.Inject
 
 
 class WordsManagerFragment : Fragment() {
@@ -23,7 +23,12 @@ class WordsManagerFragment : Fragment() {
 
     private lateinit var viewModel: WordsManagerViewModel
 
-    private val adapter: WordsManagerAdapter by lazy { WordsManagerAdapter() }
+    private val adapter: WordsManagerAdapter by lazy {
+        WordsManagerAdapter(
+            viewModel,
+            requireContext()
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,20 +41,66 @@ class WordsManagerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViewModel()
         initViews()
-        viewModel = ViewModelProvider(this).get(WordsManagerViewModel::class.java).apply {
-            App.instance.appComponent.inject(this)
-        }
-        viewModel.getAllWordsFromDb()
-        viewModel.liveDataWords.observe(viewLifecycleOwner, { renderData(it) })
+        displayData()
+        initLiveDataCheckWord()
+        initButtons()
     }
 
-    private fun renderData(wordEntity: List<WordEntity>) {
-        adapter.setData(wordEntity)
+    private fun initLiveDataCheckWord() {
+        viewModel.liveDataCheckWord.observe(viewLifecycleOwner, { event ->
+            event?.getContentIfNotHandledOrReturnNull()?.let {
+                Log.d("event status", "works")
+                viewModel.setAddedWord(it)
+                adapter.updateWordData(it)
+            }
+        })
+
+        viewModel.liveDataButtonsVisibility.observe(viewLifecycleOwner, { event ->
+            event?.getContentIfNotHandledOrReturnNull()?.let {
+                binding.btnCancelChecked.visibility = it.visibility
+                binding.btnDeleteChecked.visibility = it.visibility
+            }
+        })
+
+        viewModel.liveDataCheckedWords.observe(viewLifecycleOwner, { event ->
+            event?.getContentIfNotHandledOrReturnNull()?.let {
+                adapter.setData(it as MutableList<AddedWord>)
+            }
+        })
+
     }
 
     private fun initViews() {
         binding.rvListOfAddedWords.layoutManager = LinearLayoutManager(requireContext())
         binding.rvListOfAddedWords.adapter = adapter
     }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(WordsManagerViewModel::class.java).apply {
+            App.instance.appComponent.inject(this)
+        }
+    }
+
+    private fun initButtons() {
+        binding.btnDeleteChecked.setOnClickListener {
+            viewModel.deleteAddedWords()
+        }
+
+        binding.btnCancelChecked.setOnClickListener {
+            viewModel.setAddedWordsUnchecked()
+        }
+    }
+
+    private fun displayData() {
+        viewModel.getAllWordsFromDb()
+        viewModel.liveDataWords.observe(
+            viewLifecycleOwner,
+            {
+                viewModel.setAddedWords(it as MutableList<AddedWord>)
+                adapter.setData(it as MutableList<AddedWord>)
+            })
+    }
+
 }

@@ -1,32 +1,51 @@
 package android.findandlearnapp.words_manager.adapter
 
-import android.findandlearnapp.database.WordEntity
+import android.content.Context
 import android.findandlearnapp.databinding.ItemRecyclerviewFragmentWordsmanagerBinding
+import android.findandlearnapp.words_manager.WordsManagerViewModel
+import android.findandlearnapp.words_manager.AddedWord
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class WordsManagerAdapter : RecyclerView.Adapter<WordsManagerViewHolder>() {
+class WordsManagerAdapter(val viewModel: WordsManagerViewModel, val fragmentContext: Context) :
+    RecyclerView.Adapter<WordsManagerViewHolder>() {
 
-    private var data: List<WordEntity> = arrayListOf()
+    private var data: MutableList<AddedWord> = mutableListOf()
 
-    fun setData(data: List<WordEntity>) {
+    fun setData(data: MutableList<AddedWord>) {
         this.data = data
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordsManagerViewHolder {
-        return WordsManagerViewHolder(
+    fun updateWordData(addedWord: AddedWord) {
+        Log.d("adapter update status", "works")
+        this.data[addedWord.position] = addedWord
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordsManagerViewHolder =
+        WordsManagerViewHolder(
             ItemRecyclerviewFragmentWordsmanagerBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
-        )
-    }
+        ).apply {
+            itemView.setOnClickListener {
+                viewModel.itemViewOnClickListener(data[this.layoutPosition])
+            }
+
+            itemView.setOnLongClickListener {
+                viewModel.itemViewOnLongClickListener(data[this.layoutPosition])
+                true
+            }
+        }
+
 
     override fun onBindViewHolder(holder: WordsManagerViewHolder, position: Int) {
-        holder.bind(data[position].textOrig)
+        holder.bind(data[position], fragmentContext)
     }
 
     override fun getItemCount() = data.size

@@ -2,8 +2,18 @@ package android.findandlearnapp.utils
 
 import android.findandlearnapp.database.WordEntity
 import android.findandlearnapp.dictionary.data.*
+import android.findandlearnapp.words_manager.AddedWord
 import android.util.Log
 import java.lang.IndexOutOfBoundsException
+
+
+fun convertToAddedWord(wordsEntity: List<WordEntity>): List<AddedWord> {
+    val list = mutableListOf<AddedWord>()
+    for (i in 0 until wordsEntity.size) {
+        list.add(AddedWord(wordsEntity[i], addedWordIsNotChecked, false, i))
+    }
+    return list
+}
 
 fun convertToWordTranslations(listWordsTr: List<Tr>): List<WordTranslations> {
     val listWords = mutableListOf<WordTranslations>()
