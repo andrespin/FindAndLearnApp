@@ -1,5 +1,7 @@
 package android.findandlearnapp.words_manager
 
+import android.content.Context
+import android.findandlearnapp.R
 import android.findandlearnapp.base.BaseViewModel
 import android.findandlearnapp.database.WordEntity
 import android.findandlearnapp.dictionary.Event
@@ -11,6 +13,7 @@ import android.findandlearnapp.utils.convertToAddedWord
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -32,6 +35,8 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
     val liveDataCheckedWords = MutableLiveData<Event<List<AddedWord>>>()
 
     val liveDataButtonsVisibility = MutableLiveData<Event<Visibility>>()
+
+    val liveDataNavigationEvent = MutableLiveData<Event<Boolean>>()
 
     private var addedWordsList = mutableListOf<AddedWord>()
 
@@ -78,59 +83,16 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
         println("isChecked added word: $isChecked")
     }
 
-
     fun itemViewOnClickListener(addedWord: AddedWord) {
-
         if (isChecked) {
-
-            when (addedWord.isLongClick) {
-                true -> {
-                    addedWord.isLongClick = false
-                    addedWord.background = addedWordIsNotChecked
-                    setAddedWord(addedWord)
-                }
-                false -> {
-                    addedWord.isLongClick = true
-                    addedWord.background = addedWordIsChecked
-                    setAddedWord(addedWord)
-                }
-            }
-            Log.d("is Checked", isChecked.toString())
-            liveDataCheckWord.postValue(
-                Event(
-                    addedWord
-                )
-            )
-            findCheckedWords(addedWordsList)
-            setButtonsVisibility()
+            checkWord(addedWord)
+        } else {
+            liveDataNavigationEvent.postValue(Event(true))
         }
-
     }
 
     fun itemViewOnLongClickListener(addedWord: AddedWord) {
-
-        when (addedWord.isLongClick) {
-            true -> {
-                addedWord.isLongClick = false
-                addedWord.background = addedWordIsNotChecked
-                setAddedWord(addedWord)
-            }
-            false -> {
-                addedWord.isLongClick = true
-                addedWord.background = addedWordIsChecked
-                setAddedWord(addedWord)
-            }
-        }
-
-        Log.d("is Checked", isChecked.toString())
-        liveDataCheckWord.postValue(
-            Event(
-                addedWord
-            )
-        )
-        findCheckedWords(addedWordsList)
-        setButtonsVisibility()
-
+        checkWord(addedWord)
     }
 
     fun setAddedWords(list: MutableList<AddedWord>) {
@@ -158,6 +120,30 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
         } else {
             liveDataButtonsVisibility.postValue(Event(Visibility(View.INVISIBLE)))
         }
+    }
+
+    private fun checkWord(addedWord: AddedWord) {
+        when (addedWord.isLongClick) {
+            true -> {
+                addedWord.isLongClick = false
+                addedWord.background = addedWordIsNotChecked
+                setAddedWord(addedWord)
+            }
+            false -> {
+                addedWord.isLongClick = true
+                addedWord.background = addedWordIsChecked
+                setAddedWord(addedWord)
+            }
+        }
+
+        Log.d("is Checked", isChecked.toString())
+        liveDataCheckWord.postValue(
+            Event(
+                addedWord
+            )
+        )
+        findCheckedWords(addedWordsList)
+        setButtonsVisibility()
     }
 
     override fun handleError(error: Throwable) {

@@ -1,6 +1,7 @@
 package android.findandlearnapp.words_manager
 
 import android.findandlearnapp.App
+import android.findandlearnapp.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import javax.inject.Inject
+import androidx.navigation.fragment.findNavController
 
 
 class WordsManagerFragment : Fragment() {
@@ -70,6 +72,12 @@ class WordsManagerFragment : Fragment() {
             }
         })
 
+        viewModel.liveDataNavigationEvent.observe(viewLifecycleOwner, { event ->
+            event?.getContentIfNotHandledOrReturnNull()?.let {
+                findNavController().navigate(R.id.action_to_word)
+            }
+        })
+
     }
 
     private fun initViews() {
@@ -91,6 +99,9 @@ class WordsManagerFragment : Fragment() {
         binding.btnCancelChecked.setOnClickListener {
             viewModel.setAddedWordsUnchecked()
         }
+
+
+
     }
 
     private fun displayData() {

@@ -10,6 +10,29 @@
         android:name="android.findandlearnapp.words_manager.WordsManagerFragment"
         android:label="MoviesFragment"
         tools:layout="@layout/fragment_words_manager">
+
+        <action
+            android:id="@+id/action_to_word"
+            app:destination="@id/word"/>
+
+        <action
+            android:id="@+id/action_to_words"
+            app:destination="@id/words" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/word"
+        android:name="android.findandlearnapp.words_manager.WordFragment"
+        android:label="WordFragment"
+        tools:layout="@layout/fragment_word">
+
+        <action
+            android:id="@+id/action_to_word"
+            app:destination="@id/word"/>
+
+        <action
+            android:id="@+id/action_to_words"
+            app:destination="@id/words" />
     </fragment>
 
 </navigation>
