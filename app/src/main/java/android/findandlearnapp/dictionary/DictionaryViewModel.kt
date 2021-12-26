@@ -48,14 +48,6 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
         provideWordRepo.addWordToDatabase(wordEntity)
         setAddWordImage(View.VISIBLE, R.drawable.ic_tick, wordAdded)
 
-//        provideWordRepo.findWordInDatabase(word.textOrig)
-//            .subscribeOn(Schedulers.io())
-//            .subscribe({
-//                setAddWordImage(View.VISIBLE, R.drawable.ic_tick, wordAdded)
-//            }, {
-//                handleError(it)
-//            })
-
     }
 
     private fun deleteWordFromDb(word: Word) {

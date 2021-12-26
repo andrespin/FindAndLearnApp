@@ -2,6 +2,7 @@ package android.findandlearnapp.di
 
 
 import android.findandlearnapp.dictionary.DictionaryViewModel
+import android.findandlearnapp.words_manager.WordViewModel
 import android.findandlearnapp.words_manager.WordsManagerViewModel
 import dagger.Component
 import javax.inject.Singleton
@@ -22,6 +23,8 @@ interface AppComponent {
     fun inject(dictionaryViewModel: DictionaryViewModel)
 
     fun inject(wordsManagerViewModel: WordsManagerViewModel)
+
+    fun inject(wordViewModel: WordViewModel)
 
 }
 

@@ -10,10 +10,11 @@ import android.findandlearnapp.dictionary.repository.IWordRepo
 import android.findandlearnapp.utils.addedWordIsChecked
 import android.findandlearnapp.utils.addedWordIsNotChecked
 import android.findandlearnapp.utils.convertToAddedWord
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -22,7 +23,35 @@ data class AddedWord(
     var background: Int,
     var isLongClick: Boolean? = null,
     val position: Int
-)
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        TODO("wordEntity"),
+        parcel.readInt(),
+        parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
+        parcel.readInt()
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(background)
+        parcel.writeValue(isLongClick)
+        parcel.writeInt(position)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<AddedWord> {
+        override fun createFromParcel(parcel: Parcel): AddedWord {
+            return AddedWord(parcel)
+        }
+
+        override fun newArray(size: Int): Array<AddedWord?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
 
 data class Visibility(val visibility: Int)
 
@@ -36,22 +65,27 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
 
     val liveDataButtonsVisibility = MutableLiveData<Event<Visibility>>()
 
-    val liveDataNavigationEvent = MutableLiveData<Event<Boolean>>()
+    val liveDataNavigationEvent = MutableLiveData<Event<AddedWord>>()
 
     private var addedWordsList = mutableListOf<AddedWord>()
 
     var isChecked = false
 
     fun deleteAddedWords() {
+        val listOfWordsToDelete = mutableListOf<AddedWord>()
         for (i in 0 until addedWordsList.size) {
-            if (addedWordsList[i].isLongClick!!) {
-                provideWordRepo.deleteWordFromDatabase(
-                    addedWordsList[i].wordEntity.textOrig
-                )
-                addedWordsList.remove(addedWordsList[i])
-                liveDataWords.postValue(addedWordsList)
-            }
+                println("i : $i, addedWordsList.size ${addedWordsList.size}")
+                if (addedWordsList[i].isLongClick!!) {
+                    provideWordRepo.deleteWordFromDatabase(
+                        addedWordsList[i].wordEntity.textOrig
+                    )
+                    listOfWordsToDelete.add(addedWordsList[i])
+                }
         }
+        for (i in 0 until listOfWordsToDelete.size) {
+            addedWordsList.remove(listOfWordsToDelete[i])
+        }
+        liveDataWords.postValue(addedWordsList)
         findCheckedWords(addedWordsList)
         setButtonsVisibility()
     }
@@ -63,8 +97,7 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
         provideWordRepo.getAllWords().subscribeOn(Schedulers.io())
             .subscribe({ repos ->
                 liveDataWords.postValue(convertToAddedWord(repos))
-                println(repos)
-
+                setAddedWords(convertToAddedWord(repos) as MutableList<AddedWord>)
             }, {
                 Log.d("Error: ", it.message!!)
                 handleError(it)
@@ -74,20 +107,18 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
     private fun findCheckedWords(word: List<AddedWord>) {
         var bool = false
         for (i in 0 until word!!.size) {
-            println("word[i].isLongClick: ${word[i].isLongClick}")
             if (word[i].isLongClick!!) {
                 bool = true
             }
         }
         isChecked = bool
-        println("isChecked added word: $isChecked")
     }
 
     fun itemViewOnClickListener(addedWord: AddedWord) {
         if (isChecked) {
             checkWord(addedWord)
         } else {
-            liveDataNavigationEvent.postValue(Event(true))
+            liveDataNavigationEvent.postValue(Event(addedWord))
         }
     }
 
@@ -100,8 +131,8 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
     }
 
     fun setAddedWord(word: AddedWord) {
+        println("addedWordsList.size : ${addedWordsList.size}")
         addedWordsList[word.position] = word
-        println("added word is checked: ${word.isLongClick}")
     }
 
     fun setAddedWordsUnchecked() {
@@ -123,6 +154,7 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
     }
 
     private fun checkWord(addedWord: AddedWord) {
+
         when (addedWord.isLongClick) {
             true -> {
                 addedWord.isLongClick = false
@@ -135,8 +167,6 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
                 setAddedWord(addedWord)
             }
         }
-
-        Log.d("is Checked", isChecked.toString())
         liveDataCheckWord.postValue(
             Event(
                 addedWord

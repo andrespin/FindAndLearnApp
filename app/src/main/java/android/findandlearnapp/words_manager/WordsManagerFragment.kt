@@ -8,16 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.findandlearnapp.databinding.FragmentWordsManagerBinding
-import android.findandlearnapp.dictionary.repository.IWordRepo
-import android.findandlearnapp.utils.addedWordIsChecked
-import android.findandlearnapp.utils.addedWordIsNotChecked
 import android.findandlearnapp.words_manager.adapter.WordsManagerAdapter
+import android.os.Parcelable
 import android.util.Log
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import javax.inject.Inject
+
 import androidx.navigation.fragment.findNavController
 
+const val addedWordInfo = "word"
 
 class WordsManagerFragment : Fragment() {
 
@@ -74,10 +74,10 @@ class WordsManagerFragment : Fragment() {
 
         viewModel.liveDataNavigationEvent.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let {
-                findNavController().navigate(R.id.action_to_word)
+                val bundle = bundleOf(addedWordInfo to it)
+                findNavController().navigate(R.id.action_to_word, bundle)
             }
         })
-
     }
 
     private fun initViews() {
@@ -101,7 +101,6 @@ class WordsManagerFragment : Fragment() {
         }
 
 
-
     }
 
     private fun displayData() {
@@ -109,7 +108,6 @@ class WordsManagerFragment : Fragment() {
         viewModel.liveDataWords.observe(
             viewLifecycleOwner,
             {
-                viewModel.setAddedWords(it as MutableList<AddedWord>)
                 adapter.setData(it as MutableList<AddedWord>)
             })
     }

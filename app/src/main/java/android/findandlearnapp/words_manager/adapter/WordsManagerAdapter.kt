@@ -34,10 +34,12 @@ class WordsManagerAdapter(val viewModel: WordsManagerViewModel, val fragmentCont
             )
         ).apply {
             itemView.setOnClickListener {
+                println("this.layoutPosition ${this.layoutPosition}")
                 viewModel.itemViewOnClickListener(data[this.layoutPosition])
             }
 
             itemView.setOnLongClickListener {
+                println("this.layoutPosition ${this.layoutPosition}")
                 viewModel.itemViewOnLongClickListener(data[this.layoutPosition])
                 true
             }

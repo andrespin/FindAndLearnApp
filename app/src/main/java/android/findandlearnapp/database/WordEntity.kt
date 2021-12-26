@@ -46,6 +46,6 @@ data class WordEntity(
 
     var translationsOfParticiple: String,
 
-    var translationsOfAdverbialParticiple: String,
+    var translationsOfAdverbialParticiple: String
 )
 
