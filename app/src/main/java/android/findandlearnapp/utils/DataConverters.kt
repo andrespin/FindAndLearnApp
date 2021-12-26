@@ -28,6 +28,22 @@ fun convertToWordTranslations(listWordsTr: List<Tr>): List<WordTranslations> {
     return listWords
 }
 
+fun convertToWordTranslationsList(string: String): List<String> {
+    val list = mutableListOf<String>()
+    val char = string.toCharArray()
+    var word = ""
+
+    for (i in 0 until char.size) {
+        word += char[i]
+        if (char[i] == ',') {
+            word.filter { !it.isWhitespace() }
+            list.add(word)
+            word = ""
+        }
+    }
+    return list
+}
+
 fun convertToWord(response: WordTranslationServerResponse): Word {
     var text = ""
     var ts = ""
@@ -66,124 +82,124 @@ fun convertToWordDescription(response: WordTranslationServerResponse)
 fun convertToWordDescription(addedWord: AddedWord): List<WordDescription> {
     val listWordDesc = mutableListOf<WordDescription>()
 
-        if (addedWord.wordEntity.translationsOfNoun != EmptyField)  {
-            listWordDesc.add(
-                WordDescription(
-                    "Noun",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfNoun
-                )
+    if (addedWord.wordEntity.translationsOfNoun != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Noun",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfNoun
             )
-        }
+        )
+    }
 
-       if (addedWord.wordEntity.translationsOfPronoun != EmptyField) {
-            listWordDesc.add(
-                WordDescription(
-                    "Pronoun",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfPronoun
-                )
+    if (addedWord.wordEntity.translationsOfPronoun != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Pronoun",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfPronoun
             )
-        }
-        if (addedWord.wordEntity.translationsOfAdjective != EmptyField)  {
-            listWordDesc.add(
-                WordDescription(
-                    "Adjective",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfAdjective
-                )
+        )
+    }
+    if (addedWord.wordEntity.translationsOfAdjective != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Adjective",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfAdjective
             )
-        }
-        if (addedWord.wordEntity.translationsOfVerb != EmptyField) {
-            listWordDesc.add(
-                WordDescription(
-                    "Verb",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfVerb
-                )
+        )
+    }
+    if (addedWord.wordEntity.translationsOfVerb != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Verb",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfVerb
             )
-        }
-        if (addedWord.wordEntity.translationsOfAdverb != EmptyField) {
-            listWordDesc.add(
-                WordDescription(
-                    "Adverb",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfAdverb
-                )
+        )
+    }
+    if (addedWord.wordEntity.translationsOfAdverb != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Adverb",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfAdverb
             )
-        }
-        if (addedWord.wordEntity.translationsOfPreposition != EmptyField) {
-            listWordDesc.add(
-                WordDescription(
-                    "Preposition",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfPreposition
-                )
+        )
+    }
+    if (addedWord.wordEntity.translationsOfPreposition != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Preposition",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfPreposition
             )
-        }
-        if (addedWord.wordEntity.translationsOfConjunction != EmptyField) {
-            listWordDesc.add(
-                WordDescription(
-                    "Conjunction",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfConjunction
-                )
+        )
+    }
+    if (addedWord.wordEntity.translationsOfConjunction != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Conjunction",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfConjunction
             )
-        }
-        if (addedWord.wordEntity.translationsOfInterjection != EmptyField) {
-            listWordDesc.add(
-                WordDescription(
-                    "Interjection",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfInterjection
-                )
+        )
+    }
+    if (addedWord.wordEntity.translationsOfInterjection != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Interjection",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfInterjection
             )
-        }
-        if (addedWord.wordEntity.translationsOfNumeral != EmptyField) {
-            listWordDesc.add(
-                WordDescription(
-                    "Numeral",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfNumeral
-                )
+        )
+    }
+    if (addedWord.wordEntity.translationsOfNumeral != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Numeral",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfNumeral
             )
-        }
-        if (addedWord.wordEntity.translationsOfParticle != EmptyField) {
-            listWordDesc.add(
-                WordDescription(
-                    "Particle",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfParticle
-                )
+        )
+    }
+    if (addedWord.wordEntity.translationsOfParticle != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Particle",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfParticle
             )
-        }
-        if (addedWord.wordEntity.translationsOfInvariable != EmptyField) {
-            listWordDesc.add(
-                WordDescription(
-                    "Invariable",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfInvariable
-                )
+        )
+    }
+    if (addedWord.wordEntity.translationsOfInvariable != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Invariable",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfInvariable
             )
-        }
-        if (addedWord.wordEntity.translationsOfParticiple != EmptyField) {
-            listWordDesc.add(
-                WordDescription(
-                    "Participle",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfParticiple
-                )
+        )
+    }
+    if (addedWord.wordEntity.translationsOfParticiple != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Participle",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfParticiple
             )
-        }
-        if (addedWord.wordEntity.translationsOfAdverbialParticiple != EmptyField) {
-            listWordDesc.add(
-                WordDescription(
-                    "Adverbial participle",
-                    addedWord.wordEntity.textOrig,
-                    addedWord.wordEntity.translationsOfAdverbialParticiple
-                )
+        )
+    }
+    if (addedWord.wordEntity.translationsOfAdverbialParticiple != EmptyField) {
+        listWordDesc.add(
+            WordDescription(
+                "Adverbial participle",
+                addedWord.wordEntity.textOrig,
+                addedWord.wordEntity.translationsOfAdverbialParticiple
             )
-        }
+        )
+    }
     return listWordDesc
 }
 
