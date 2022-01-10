@@ -44,55 +44,139 @@ class TestViewModel : ViewModel() {
 
     private val partOfSpeechSet = setOf("nouns", "verbs", "adverbs", "adjectives")
     private val partsOfSpeechList = listOf("nouns", "verbs", "adverbs", "adjectives")
-    
+
     fun initLists() {
         nounsList = convertToList(readTxtFile("ru_nouns.txt"))
         verbsList = convertToList(readTxtFile("ru_verbs.txt"))
         adverbsList = convertToList(readTxtFile("ru_adverbs.txt"))
         adjectivesList = convertToList(readTxtFile("ru_adjectives.txt"))
 
-        println("nounsList : size ${nounsList.size}, $nounsList")
-        println("verbsList : size ${verbsList.size}, $verbsList")
-        println("adverbsList : size ${adverbsList.size}, $adverbsList")
-        println("adjectivesList : size ${adjectivesList.size}, $adjectivesList")
-
         initMyLists()
+        createTestCard()
     }
 
     fun createTestCard() {
-        when (partOfSpeechSet.random()) {
-            "nouns" -> {
-                if (myNouns.size > 0) {
-                    createWordRaw(myNouns, nounsList)
+
+        val random = partOfSpeechSet.random()
+
+        println("partOfSpeechSet.random(): $random")
+
+        if (myNouns.size > 0 || myVerbs.size > 0 || myAdverbs.size > 0 || myAdjectives.size > 0) {
+            when (random) {
+                "nouns" -> {
+                    if (myNouns.size > 0) {
+                        createWordRaw(myNouns, nounsList)
+                    } else if (myVerbs.size > 0) {
+                        createWordRaw(myVerbs, verbsList)
+                    } else if (myAdverbs.size > 0) {
+                        createWordRaw(myAdverbs, adverbsList)
+                    } else if (myAdjectives.size > 0) {
+                        createWordRaw(myAdjectives, adjectivesList)
+                    }
+                }
+                "verbs" -> {
+                    if (myVerbs.size > 0) {
+                        createWordRaw(myVerbs, verbsList)
+                    } else if (myNouns.size > 0) {
+                        createWordRaw(myNouns, nounsList)
+                    } else if (myAdverbs.size > 0) {
+                        createWordRaw(myAdverbs, adverbsList)
+                    } else if (myAdjectives.size > 0) {
+                        createWordRaw(myAdjectives, adjectivesList)
+                    }
+                }
+                "adverbs" -> {
+                    if (myAdverbs.size > 0) {
+                        createWordRaw(myAdverbs, adverbsList)
+                    } else if (myNouns.size > 0) {
+                        createWordRaw(myNouns, nounsList)
+                    } else if (myVerbs.size > 0) {
+                        createWordRaw(myVerbs, verbsList)
+                    } else if (myAdjectives.size > 0) {
+                        createWordRaw(myAdjectives, adjectivesList)
+                    }
+                }
+                "adjectives" -> {
+                    println("myAdjectives.size: ${myAdjectives.size}")
+                    if (myAdjectives.size > 0) {
+                        createWordRaw(myAdjectives, adjectivesList)
+                    } else if (myNouns.size > 0) {
+                        createWordRaw(myNouns, nounsList)
+                    } else if (myVerbs.size > 0) {
+                        createWordRaw(myVerbs, verbsList)
+                    } else if (myAdverbs.size > 0) {
+                        createWordRaw(myAdverbs, adverbsList)
+                    }
                 }
             }
-            "verbs" -> {
-
-            }
-            "adverbs" -> {
-
-            }
-            "adjectives" -> {
-
-            }
+        } else {
+            noWordsForTests()
         }
+    }
 
+    private fun noWordsForTests() {
+        // TODO
     }
 
     private fun createWordRaw(myWords: List<MyAddedWord>, words: List<String>) {
-        val rightAnswerPosition = (0..3).random()
+
+        val rightAnswerPosition = 0 // (0..3).random()
         val randomWordNumber = (0 until myWords.size).random()
+        println("myWords.size: ${myWords.size}, randomWordNumber: $randomWordNumber, myWords[randomWordNumber].translations ${myWords[randomWordNumber].translations} ")
+
         when (rightAnswerPosition) {
             0 -> {
                 liveDataCreateCardEvent.postValue(
                     Event(
                         WordsCard(
                             myWords[randomWordNumber].translations[0],
-                            words[(0 until myWords.size).random()],
-                            words[(0 until myWords.size).random()],
-                            words[(0 until myWords.size).random()],
+                            words[(0 until words.size).random()],
+                            words[(0 until words.size).random()],
+                            words[(0 until words.size).random()],
                             myWords[randomWordNumber].textOrig,
                             0
+                        )
+                    )
+                )
+            }
+            1 -> {
+                liveDataCreateCardEvent.postValue(
+                    Event(
+                        WordsCard(
+                            words[(0 until words.size).random()],
+                            myWords[randomWordNumber].translations[0],
+                            words[(0 until words.size).random()],
+                            words[(0 until words.size).random()],
+                            myWords[randomWordNumber].textOrig,
+                            1
+                        )
+                    )
+                )
+            }
+            2 -> {
+                liveDataCreateCardEvent.postValue(
+                    Event(
+                        WordsCard(
+                            words[(0 until words.size).random()],
+                            words[(0 until words.size).random()],
+                            myWords[randomWordNumber].translations[0],
+                            words[(0 until words.size).random()],
+                            myWords[randomWordNumber].textOrig,
+                            2
+                        )
+                    )
+                )
+            }
+            3 -> {
+                liveDataCreateCardEvent.postValue(
+                    Event(
+                        WordsCard(
+                            words[(0 until words.size).random()],
+                            words[(0 until words.size).random()],
+                            words[(0 until words.size).random()],
+                            myWords[randomWordNumber].translations[0],
+                            myWords[randomWordNumber].textOrig,
+                            3
                         )
                     )
                 )
@@ -131,17 +215,26 @@ class TestViewModel : ViewModel() {
             }
 
             if (addedWordsList[i].translationsOfAdjective != EmptyField) {
+
+                println("addedWordsList[$i].translationsOfAdjective: ${addedWordsList[i].translationsOfAdjective}")
+
                 myAdjectives.add(
                     MyAddedWord(
                         addedWordsList[i].textOrig,
                         convertToWordTranslationsList(addedWordsList[i].translationsOfAdjective)
                     )
                 )
-
             }
         }
-    }
 
+
+        println("myNouns test: ${myNouns}")
+        println("myVerbs test: ${myVerbs}")
+        println("myAdverbs test: ${myAdverbs}")
+        println("myAdjectives test: ${myAdjectives}")
+
+
+    }
 
     @Inject
     lateinit var provideWordRepo: IWordRepo
@@ -195,6 +288,5 @@ class TestViewModel : ViewModel() {
         }
         return list
     }
-
 
 }

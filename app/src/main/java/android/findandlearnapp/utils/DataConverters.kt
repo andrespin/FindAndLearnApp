@@ -29,17 +29,24 @@ fun convertToWordTranslations(listWordsTr: List<Tr>): List<WordTranslations> {
 }
 
 fun convertToWordTranslationsList(string: String): List<String> {
+    var isOneWord = true
     val list = mutableListOf<String>()
     val char = string.toCharArray()
     var word = ""
 
     for (i in 0 until char.size) {
-        word += char[i]
+        if (char[i] != ',') {
+            word += char[i]
+        }
         if (char[i] == ',') {
+            isOneWord = false
             word.filter { !it.isWhitespace() }
             list.add(word)
             word = ""
         }
+    }
+    if (isOneWord) {
+        list.add(word)
     }
     return list
 }
@@ -235,10 +242,8 @@ private var translationsOfAdverbialParticiple = EmptyField
 
 
 fun convertToWordEntity(word: Word): WordEntity {
-
     associateTranslationsWithPartOfSpeechSections(word)
-
-    return WordEntity(
+    val wordEntity = WordEntity(
         word.textOrig,
         word.txtPhonetics,
         translationsOfNoun,
@@ -255,6 +260,28 @@ fun convertToWordEntity(word: Word): WordEntity {
         translationsOfParticiple,
         translationsOfAdverbialParticiple
     )
+    assignEmptyFieldToTranslationVars()
+    return wordEntity
+}
+
+fun assignEmptyFieldToTranslationVars() {
+    translationsOfNoun = EmptyField
+    translationsOfPronoun = EmptyField
+    translationsOfAdjective = EmptyField
+
+    translationsOfVerb = EmptyField
+    translationsOfAdverb = EmptyField
+    translationsOfPreposition = EmptyField
+
+    translationsOfConjunction = EmptyField
+    translationsOfInterjection = EmptyField
+    translationsOfNumeral = EmptyField
+
+    translationsOfParticle = EmptyField
+    translationsOfInvariable = EmptyField
+    translationsOfParticiple = EmptyField
+
+    translationsOfAdverbialParticiple = EmptyField
 }
 
 

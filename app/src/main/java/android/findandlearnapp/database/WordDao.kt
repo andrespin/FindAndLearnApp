@@ -24,7 +24,7 @@ interface WordDao {
     fun deleteAllWords(): Completable
 
     @Query("SELECT * FROM words_table WHERE textOrig=:textOrig")
-    fun getWord(textOrig: String): Maybe<WordEntity>
+    fun getWord(textOrig: String): Single<WordEntity>
 
 //    @Query("SELECT * FROM words_table WHERE textOrig=:textOrig")
 //    fun getWord(textOrig: String): Single<WordEntity>

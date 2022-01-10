@@ -78,6 +78,6 @@ class WordRepo @Inject constructor(
 
     override fun getAllWordsFromDatabase(): Single<List<WordEntity>> = wordDao.getAllWords()
 
-    override fun findWordInDatabase(textOrig: String): Maybe<WordEntity> = wordDao.getWord(textOrig)
+    override fun findWordInDatabase(textOrig: String): Single<WordEntity> = wordDao.getWord(textOrig)
 
 }

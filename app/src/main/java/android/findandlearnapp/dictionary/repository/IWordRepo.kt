@@ -21,7 +21,7 @@ interface IWordRepo {
 
     fun getAllWordsFromDatabase(): Single<List<WordEntity>>
 
-    fun findWordInDatabase(textOrig: String): Maybe<WordEntity>
+    fun findWordInDatabase(textOrig: String): Single<WordEntity>
 
     fun getAllWords(): Single<List<WordEntity>>
 

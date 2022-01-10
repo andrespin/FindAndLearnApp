@@ -35,7 +35,6 @@ class DictionaryFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return FragmentDictionaryBinding.inflate(inflater, container, false).also {
             binding = it
         }.root
@@ -49,7 +48,6 @@ class DictionaryFragment : BaseFragment() {
         }
         viewModel.liveDataForViewToObserve.observe(viewLifecycleOwner, { renderData(it) })
 
-
         viewModel.liveDataImgPutWordToDb.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let {
                 binding.imgPutWordToDb.visibility = it.visibility
@@ -59,6 +57,13 @@ class DictionaryFragment : BaseFragment() {
             }
         })
         initListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (this::word.isInitialized) {
+            viewModel.findWordInDatabase(word)
+        }
     }
 
     private fun renderData(appState: AppState) {
@@ -119,14 +124,9 @@ class DictionaryFragment : BaseFragment() {
 
             println("binding.imgPutWordToDb.drawable $binding.imgPutWordToDb.resources")
 
-          //  viewModel.addWordToDb(word)
+            //  viewModel.addWordToDb(word)
         }
 
     }
 
-    companion object {
-
-        fun newInstance() =
-            DictionaryFragment()
-    }
 }

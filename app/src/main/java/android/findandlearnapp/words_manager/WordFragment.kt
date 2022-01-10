@@ -22,10 +22,7 @@ class WordFragment : Fragment() {
 
     private lateinit var binding: FragmentWordBinding
 
-    private lateinit var viewModel: WordViewModel
-
     private val adapter: WordAdapter by lazy { WordAdapter() }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,9 +50,6 @@ class WordFragment : Fragment() {
     }
 
     private fun init() {
-        viewModel = ViewModelProvider(this).get(WordViewModel::class.java).apply {
-            App.instance.appComponent.inject(this)
-        }
 
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()

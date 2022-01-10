@@ -14,8 +14,6 @@ class App : Application() {
         lateinit var instance: App
     }
 
- //   private lateinit var db:  WordDatabase
-
     lateinit var appComponent: AppComponent
 
     override fun onCreate() {
@@ -27,7 +25,5 @@ class App : Application() {
             .appModule(AppModule(this))
             .build()
     }
-
-//    fun getDatabase() : WordDatabase = db
 
 }

@@ -1,6 +1,7 @@
 package android.findandlearnapp.words_test
 
 import android.findandlearnapp.App
+import android.findandlearnapp.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.findandlearnapp.databinding.FragmentTestBinding
 import android.findandlearnapp.words_manager.WordsManagerViewModel
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import java.io.*
 
@@ -21,6 +23,10 @@ class TestFragment : Fragment() {
     private lateinit var binding: FragmentTestBinding
 
     private lateinit var viewModel: TestViewModel
+
+    private var rightPosition: Int? = null
+
+    private var selectedPosition: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,95 +44,78 @@ class TestFragment : Fragment() {
             App.instance.appComponent.inject(this)
         }
 
-//        val nounsList = convertToList(readTxtFile("ru_nouns.txt"))
-//        val verbsList = convertToList(readTxtFile("ru_verbs.txt"))
-//        val adverbsList = convertToList(readTxtFile("ru_adverbs.txt"))
-//        val adjectivesList = convertToList(readTxtFile("ru_adjectives.txt"))
-//
-//        println("nounsList : size ${nounsList.size}, $nounsList")
-//        println("verbsList : size ${verbsList.size}, $verbsList")
-//        println("adverbsList : size ${adverbsList.size}, $adverbsList")
-//        println("adjectivesList : size ${adjectivesList.size}, $adjectivesList")
+        viewModel.getAllWordsFromDb()
 
-//        val test = convertToList("ещё, пространство, вой")
-//        val test = convertToListTest("вой  ")
-//        println("test convert: size ${test.size}, $test")
-
-    }
-
-    private fun readTxtFile(filename: String): String {
-        var text = ""
-        try {
-            val sampleText: String =
-                requireActivity()
-                    .assets
-                    .open(filename)
-                    .bufferedReader().use {
-                        it.readText()
-                    }
-            text = sampleText
-        } catch (e: IOException) {
-            e.printStackTrace()
+        binding.btnNext.setOnClickListener {
+            binding.radioButton1.setTextColor(resources.getColor(R.color.black))
+            binding.radioButton2.setTextColor(resources.getColor(R.color.black))
+            binding.radioButton3.setTextColor(resources.getColor(R.color.black))
+            binding.radioButton4.setTextColor(resources.getColor(R.color.black))
+            binding.radioButton1.isChecked = false
+            binding.radioButton2.isChecked = false
+            binding.radioButton3.isChecked = false
+            binding.radioButton4.isChecked = false
+            viewModel.initLists()
         }
-        return text + " "
-    }
 
-    private fun convertToList(text: String): List<String> {
-        val list = arrayListOf<String>()
-
-        val array = text.toCharArray()
-
-        var word = ""
-
-        for (i in 0 until array.size) {
-
-            if (array[i] in 'а'..'я' || array[i] == 'й' || array[i] == 'ё') {
-                word += array[i]
-            } else {
-                if (word != "") {
-                    list.add(word)
+        binding.btnCheck.setOnClickListener {
+            when (true) {
+                binding.radioButton1.isChecked -> {
+                    selectedPosition = 0
                 }
-                word = ""
+
+                binding.radioButton2.isChecked -> {
+                    selectedPosition = 1
+                }
+
+                binding.radioButton3.isChecked -> {
+                    selectedPosition = 2
+                }
+
+                binding.radioButton4.isChecked -> {
+                    selectedPosition = 3
+                }
             }
-        }
-        return list
-    }
 
-    private fun convertToListTest(text: String): List<String> {
-        val list = arrayListOf<String>()
+            println("selectedPosition: $selectedPosition")
 
-        val array = text.toCharArray()
-
-        println("array size = ${array.size}")
-
-        var word = ""
-
-        for (i in 0 until array.size) {
-
-            //   println("array[i] ${array[i]}, array[i] == 'й' : ${array[i] == 'й'} ")
-
-            if (array[i] in 'а'..'я' || array[i] == 'й' || array[i] == 'ё') {
-                println("array[i] ${array[i]} , true")
-                word += array[i]
-            } else {
-                if (word != "") {
-                    list.add(word)
+            if (selectedPosition == rightPosition) {
+                when (selectedPosition) {
+                    0 -> binding.radioButton1.setTextColor(resources.getColor(R.color.green))
+                    1 -> binding.radioButton2.setTextColor(resources.getColor(R.color.green))
+                    2 -> binding.radioButton3.setTextColor(resources.getColor(R.color.green))
+                    3 -> binding.radioButton4.setTextColor(resources.getColor(R.color.green))
                 }
-                println("array[i] ${array[i]} , false")
-                word = ""
+            } else if (selectedPosition == null) {
+                Toast.makeText(requireContext(), "Поле с ответом не выбрано", Toast.LENGTH_SHORT).show()
+            } else {
+                when (selectedPosition) {
+                    0 -> binding.radioButton1.setTextColor(resources.getColor(R.color.red))
+                    1 -> binding.radioButton2.setTextColor(resources.getColor(R.color.red))
+                    2 -> binding.radioButton3.setTextColor(resources.getColor(R.color.red))
+                    3 -> binding.radioButton4.setTextColor(resources.getColor(R.color.red))
+                }
+                when (rightPosition) {
+                    0 -> binding.radioButton1.setTextColor(resources.getColor(R.color.green))
+                    1 -> binding.radioButton2.setTextColor(resources.getColor(R.color.green))
+                    2 -> binding.radioButton3.setTextColor(resources.getColor(R.color.green))
+                    3 -> binding.radioButton4.setTextColor(resources.getColor(R.color.green))
+                }
             }
 
         }
-        return list
-    }
 
-
-
-
-
-
-    companion object {
-        fun newInstance() =
-            TestFragment()
+        viewModel.liveDataCreateCardEvent.observe(viewLifecycleOwner, { event ->
+            event?.getContentIfNotHandledOrReturnNull()?.let {
+                binding.radioGroup.visibility = View.VISIBLE
+                binding.radioButton1.text = it.word1
+                binding.radioButton2.text = it.word2
+                binding.radioButton3.text = it.word3
+                binding.radioButton4.text = it.word4
+                binding.txtWordDesc.text = it.textOrig
+                println("Right answer ${it.rightPosition}")
+                rightPosition = it.rightPosition
+            }
+        })
     }
 }

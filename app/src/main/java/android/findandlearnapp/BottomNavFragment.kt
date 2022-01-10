@@ -16,7 +16,7 @@ class BottomNavFragment : Fragment() {
     private var bottomNavSelectedItemId = R.id.dictionary_graph // Must be your starting destination
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,  container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment

@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="green">#01FF38</color>
+
     <color name="red">#FF0000</color>
 
     <color name="checkedWord">#330067FF</color>
