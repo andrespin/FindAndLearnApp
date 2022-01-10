@@ -46,6 +46,8 @@ class TestFragment : Fragment() {
 
         viewModel.getAllWordsFromDb()
 
+        viewModel.initLists()
+
         binding.btnNext.setOnClickListener {
             binding.radioButton1.setTextColor(resources.getColor(R.color.black))
             binding.radioButton2.setTextColor(resources.getColor(R.color.black))
@@ -104,6 +106,12 @@ class TestFragment : Fragment() {
             }
 
         }
+
+        viewModel.liveDataSendNoWordsMessage.observe(viewLifecycleOwner, { event ->
+            event?.getContentIfNotHandledOrReturnNull()?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        })
 
         viewModel.liveDataCreateCardEvent.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let {

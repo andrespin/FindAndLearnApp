@@ -30,6 +30,8 @@ class TestViewModel : ViewModel() {
 
     val liveDataCreateCardEvent = MutableLiveData<Event<WordsCard>>()
 
+    val liveDataSendNoWordsMessage = MutableLiveData<Event<String>>()
+
     private lateinit var nounsList: List<String>
     private lateinit var verbsList: List<String>
     private lateinit var adverbsList: List<String>
@@ -115,7 +117,7 @@ class TestViewModel : ViewModel() {
     }
 
     private fun noWordsForTests() {
-        // TODO
+        liveDataSendNoWordsMessage.postValue(Event("Нет слов для отображения тестов"))
     }
 
     private fun createWordRaw(myWords: List<MyAddedWord>, words: List<String>) {
