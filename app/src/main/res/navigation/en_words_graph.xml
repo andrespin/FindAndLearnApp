@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/en_words_graph"
+    app:startDestination="@id/en_words">
+
+    <fragment
+        android:id="@+id/en_words"
+        android:name="android.findandlearnapp.words_manager.en_words.EngWordsFragment"
+        android:label="MoviesFragment"
+        tools:layout="@layout/fragment_eng_words">
+
+        <action
+            android:id="@+id/action_en_words_to_word"
+            app:destination="@id/word" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/word"
+        android:name="android.findandlearnapp.words_manager.WordFragment"
+        android:label="WordFragment"
+        tools:layout="@layout/fragment_word">
+
+    </fragment>
+
+</navigation>

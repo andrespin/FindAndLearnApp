@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,13 +34,14 @@ class BottomNavFragment : Fragment() {
         setupBottomNavBar(view)
     }
 
-
     private fun setupBottomNavBar(view: View) {
         val bottomNavView = view.findViewById<BottomNavigationView>(R.id.bottom_nav_view)
+        val toolbar = view.findViewById<Toolbar>(R.id.main_toolbar)
 
         bottomNavView.selectedItemId = bottomNavSelectedItemId
 
-        val navGraphIds = listOf(R.navigation.dictionary_graph, R.navigation.test_graph, R.navigation.words_graph)
+        // R.navigation.words_graph
+        val navGraphIds = listOf(R.navigation.dictionary_graph, R.navigation.test_graph, R.navigation.words_view_pager_graph)
 
         val controller = bottomNavView.setupWithNavController(
 
@@ -53,7 +56,20 @@ class BottomNavFragment : Fragment() {
         controller.observe(viewLifecycleOwner, { navController ->
             bottomNavSelectedItemId = navController.graph.id
         })
-
+        addToolbarListener(toolbar)
     }
+
+    private fun addToolbarListener(toolbar: Toolbar) {
+        toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.settings -> {
+                    findNavController().navigate(R.id.settings)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
 
 }

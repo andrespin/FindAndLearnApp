@@ -65,22 +65,27 @@ class DictionaryViewModel : BaseViewModel<AppState>() {
             word
         ).observeOn(Schedulers.io())
             .subscribe({ repos ->
-                val word = convertToWord(repos)
-                if (word.isFound) {
-                    _mutableLiveData.postValue(
-                        AppState.Success(
-                            word
+                if (repos != null) {
+                    println("repos is not null: $repos")
+                    val word = convertToWord(repos)
+                    if (word.isFound) {
+                        _mutableLiveData.postValue(
+                            AppState.Success(
+                                word
+                            )
                         )
-                    )
-                    findWordInDatabase(word)
-                  //  setAddWordImage(View.VISIBLE, R.drawable.ic_plus, wordNotAdded)
+                        findWordInDatabase(word)
+                        //  setAddWordImage(View.VISIBLE, R.drawable.ic_plus, wordNotAdded)
+                    } else {
+                        setAddWordImage(View.GONE, R.drawable.ic_plus, wordNotAdded)
+                        _mutableLiveData.postValue(
+                            AppState.Success(
+                                word
+                            )
+                        )
+                    }
                 } else {
-                    setAddWordImage(View.GONE, R.drawable.ic_plus, wordNotAdded)
-                    _mutableLiveData.postValue(
-                        AppState.Success(
-                            word
-                        )
-                    )
+                    println("repos is null: $repos")
                 }
                 println(repos)
             }, {

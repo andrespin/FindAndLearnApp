@@ -6,12 +6,39 @@ import android.findandlearnapp.words_manager.AddedWord
 import android.util.Log
 import java.lang.IndexOutOfBoundsException
 
+fun getRusWords(wordsEntity: List<WordEntity>): List<WordEntity> {
+    val list = mutableListOf<WordEntity>()
+    for (i in 0 until wordsEntity.size) {
+        val firstLetter = wordsEntity[i].textOrig.toCharArray()[0]
+        if (firstLetter in 'А'..'Я' || firstLetter in 'а'..'я'
+            || firstLetter == 'Ё' || firstLetter == 'ё'
+        ) {
+            list.add(wordsEntity[i])
+        }
+    }
+    println("Rus words: $list")
+    return list
+}
+
+fun getEngWords(wordsEntity: List<WordEntity>): List<WordEntity> {
+    val list = mutableListOf<WordEntity>()
+    for (i in 0 until wordsEntity.size) {
+        val firstLetter = wordsEntity[i].textOrig.toCharArray()[0]
+        if (firstLetter in 'A'..'Z' || firstLetter in 'a'..'z') {
+            list.add(wordsEntity[i])
+        }
+        println("Eng words: $list")
+    }
+    return list
+}
+
 
 fun convertToAddedWord(wordsEntity: List<WordEntity>): List<AddedWord> {
     val list = mutableListOf<AddedWord>()
     for (i in 0 until wordsEntity.size) {
         list.add(AddedWord(wordsEntity[i], addedWordIsNotChecked, false, i))
     }
+    println("list :" + list)
     return list
 }
 

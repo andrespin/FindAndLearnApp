@@ -1,15 +1,11 @@
 package android.findandlearnapp.words_manager
 
-import android.content.Context
-import android.findandlearnapp.R
 import android.findandlearnapp.base.BaseViewModel
 import android.findandlearnapp.database.WordEntity
 import android.findandlearnapp.dictionary.Event
 import android.findandlearnapp.dictionary.data.AppState
 import android.findandlearnapp.dictionary.repository.IWordRepo
-import android.findandlearnapp.utils.addedWordIsChecked
-import android.findandlearnapp.utils.addedWordIsNotChecked
-import android.findandlearnapp.utils.convertToAddedWord
+import android.findandlearnapp.utils.*
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
@@ -53,6 +49,10 @@ data class AddedWord(
     }
 }
 
+enum class LanguageOfWords() {
+    Russian, English, All_words
+}
+
 data class Visibility(val visibility: Int)
 
 class WordsManagerViewModel : BaseViewModel<AppState>() {
@@ -74,13 +74,13 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
     fun deleteAddedWords() {
         val listOfWordsToDelete = mutableListOf<AddedWord>()
         for (i in 0 until addedWordsList.size) {
-                println("i : $i, addedWordsList.size ${addedWordsList.size}")
-                if (addedWordsList[i].isLongClick!!) {
-                    provideWordRepo.deleteWordFromDatabase(
-                        addedWordsList[i].wordEntity.textOrig
-                    )
-                    listOfWordsToDelete.add(addedWordsList[i])
-                }
+            println("i : $i, addedWordsList.size ${addedWordsList.size}")
+            if (addedWordsList[i].isLongClick!!) {
+                provideWordRepo.deleteWordFromDatabase(
+                    addedWordsList[i].wordEntity.textOrig
+                )
+                listOfWordsToDelete.add(addedWordsList[i])
+            }
         }
         for (i in 0 until listOfWordsToDelete.size) {
             addedWordsList.remove(listOfWordsToDelete[i])
@@ -93,15 +93,42 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
     @Inject
     lateinit var provideWordRepo: IWordRepo
 
-    fun getAllWordsFromDb() {
+
+    fun getAllWordsFromDb(langOfWords: LanguageOfWords) {
         provideWordRepo.getAllWords().subscribeOn(Schedulers.io())
             .subscribe({ repos ->
-                liveDataWords.postValue(convertToAddedWord(repos))
-                setAddedWords(convertToAddedWord(repos) as MutableList<AddedWord>)
+                setWords(langOfWords, repos)
             }, {
                 Log.d("Error: ", it.message!!)
                 handleError(it)
             })
+    }
+
+    private fun setWords(langOfWords: LanguageOfWords, repos: List<WordEntity>) {
+        when (langOfWords) {
+            LanguageOfWords.Russian -> {
+                val words = convertToAddedWord(getRusWords(repos))
+                        as MutableList<AddedWord>
+                setAddedWords(
+                    words
+                )
+                liveDataWords.postValue(words)
+            }
+
+            LanguageOfWords.English -> {
+                val words = convertToAddedWord(getEngWords(repos))
+                        as MutableList<AddedWord>
+                setAddedWords(
+                    words
+                )
+                liveDataWords.postValue(words)
+
+            }
+
+            LanguageOfWords.All_words ->
+                setAddedWords(convertToAddedWord(repos) as MutableList<AddedWord>)
+        }
+
     }
 
     private fun findCheckedWords(word: List<AddedWord>) {

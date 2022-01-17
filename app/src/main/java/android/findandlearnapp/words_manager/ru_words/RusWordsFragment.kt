@@ -1,27 +1,30 @@
-package android.findandlearnapp.words_manager
+package android.findandlearnapp.words_manager.ru_words
 
 import android.findandlearnapp.App
-import android.findandlearnapp.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.findandlearnapp.R
+import android.findandlearnapp.databinding.FragmentRusWordsBinding
 import android.findandlearnapp.databinding.FragmentWordsManagerBinding
+import android.findandlearnapp.words_manager.AddedWord
+import android.findandlearnapp.words_manager.LanguageOfWords
+import android.findandlearnapp.words_manager.WordsManagerViewModel
 import android.findandlearnapp.words_manager.adapter.WordsManagerAdapter
-import android.os.Parcelable
+import android.findandlearnapp.words_manager.addedWordInfo
 import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
-import androidx.navigation.fragment.findNavController
 
-const val addedWordInfo = "word"
+class RusWordsFragment : Fragment() {
 
-class WordsManagerFragment : Fragment() {
-
-    private lateinit var binding: FragmentWordsManagerBinding
+    private lateinit var binding: FragmentRusWordsBinding
 
     private lateinit var viewModel: WordsManagerViewModel
 
@@ -36,7 +39,7 @@ class WordsManagerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return FragmentWordsManagerBinding.inflate(inflater, container, false).also {
+        return FragmentRusWordsBinding.inflate(inflater, container, false).also {
             binding = it
         }.root
     }
@@ -75,7 +78,7 @@ class WordsManagerFragment : Fragment() {
         viewModel.liveDataNavigationEvent.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let {
                 val bundle = bundleOf(addedWordInfo to it)
-             //   findNavController().navigate(R.id.action_ru_words_to_word, bundle)
+                 findNavController().navigate(R.id.action_ru_words_to_word, bundle)
             }
         })
     }
@@ -104,7 +107,7 @@ class WordsManagerFragment : Fragment() {
     }
 
     private fun displayData() {
-        viewModel.getAllWordsFromDb(LanguageOfWords.All_words)
+        viewModel.getAllWordsFromDb(LanguageOfWords.Russian)
         viewModel.liveDataWords.observe(
             viewLifecycleOwner,
             {

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/bottom_nav"
-    android:id="@+id/main">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/words_view_pager_graph"
+    app:startDestination="@id/words_view_pager">
 
     <fragment
-        android:id="@+id/bottom_nav"
-        android:name="android.findandlearnapp.BottomNavFragment"
-        android:label="Bottom Nav"
-        tools:layout="@layout/fragment_bottom_nav">
+        android:id="@+id/words_view_pager"
+        android:name="android.findandlearnapp.words_manager.ViewPagerFragment"
+        android:label="MoviesFragment"
+        tools:layout="@layout/fragment_view_pager">
     </fragment>
 
     <fragment

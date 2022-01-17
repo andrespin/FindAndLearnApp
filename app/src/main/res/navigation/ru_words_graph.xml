@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ru_words_graph"
+    app:startDestination="@id/ru_words">
+
+    <fragment
+        android:id="@+id/ru_words"
+        android:name="android.findandlearnapp.words_manager.ru_words.RusWordsFragment"
+        android:label="MoviesFragment"
+        tools:layout="@layout/fragment_rus_words">
+
+        <action
+            android:id="@+id/action_ru_words_to_word"
+            app:destination="@id/word" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/word"
+        android:name="android.findandlearnapp.words_manager.WordFragment"
+        android:label="WordFragment"
+        tools:layout="@layout/fragment_word">
+
+    </fragment>
+
+</navigation>

@@ -15,6 +15,7 @@
     <color name="checkedWord">#330067FF</color>
 
     <color name="notCheckedWord">#FFFFFFFF</color>
+    <color name="settings_back">#24635353</color>
 
 
 </resources>
