@@ -7,9 +7,9 @@
         android:title="@string/title_settings" />
 
     <item
-        android:id="@+id/manager_words_list"
+        android:id="@+id/aboutApp"
         android:contentDescription="@string/cd_settings"
         android:icon="@drawable/ic_settings"
-        android:title="Manage word list" />
+        android:title="About app" />
 
 </menu>

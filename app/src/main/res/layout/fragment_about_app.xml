@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".words_app_settings.AboutAppFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/main_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:background="@drawable/ic_toolbar_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:navigationIcon="@drawable/ic_arrow_left_black_36dp"
+            app:titleTextColor="@android:color/black">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="S l o v a r i k"
+                android:textSize="38sp" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <CheckedTextView
+        android:id="@+id/checkedTxtApi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.1"
+        android:gravity="center"
+        android:checked="false"
+        android:drawableRight="@drawable/ic_settings"
+        android:drawableLeft="@android:drawable/ic_menu_help"
+        android:text="CheckedTextView"
+        android:layout_marginLeft="30sp"
+        android:layout_marginRight="31sp"
+        android:textSize="20sp"/>
+
+    <ScrollView
+        android:id="@+id/scrollApi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3"
+        android:visibility="gone"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:text="@string/scroll_test">
+            </TextView>
+        </LinearLayout>
+    </ScrollView>
+
+    <CheckedTextView
+        android:id="@+id/checkedTxtAboutApp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.1"
+        android:gravity="center"
+        android:checked="false"
+        android:drawableRight="@drawable/ic_settings"
+        android:drawableLeft="@android:drawable/ic_menu_help"
+        android:text="CheckedTextView"
+        android:layout_marginLeft="30sp"
+        android:layout_marginRight="31sp"
+        android:textSize="20sp"/>
+
+    <ScrollView
+        android:id="@+id/scrollAboutApp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3"
+        android:visibility="gone"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:text="@string/scroll_test">
+            </TextView>
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.legacy.widget.Space
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.24">
+
+    </androidx.legacy.widget.Space>
+
+
+</LinearLayout>
+
+<!--
+<CheckedTextView
+    android:id="@+id/simpleCheckedTextView"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:checked="true"
+    android:gravity="center"
+    android:checkMark="@drawable/checked"
+    android:textColor="#fff"
+    android:background="#000"
+    android:textSize="20sp"
+    android:text="Android"
+    android:drawableLeft="@drawable/ic_launcher"
+    android:textStyle="bold|italic"/>
+-->

@@ -39,27 +39,76 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <ScrollView
-        android:layout_width="418dp"
-        android:layout_height="665dp"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="351dp"
+        android:layout_height="516dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_bar_layout">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/scroll_test"
-            android:textSize="28sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-        </TextView>
+            <TextView
+                android:id="@+id/txtApi"
+                android:layout_width="317dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="48dp"
+                android:drawableRight="@android:drawable/ic_menu_info_details"
+                android:nestedScrollingEnabled="false"
+                android:text="Введите ключ в строке ниже:"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </ScrollView>
+            <EditText
+                android:id="@+id/txtEditApi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/txtApi"></EditText>
+
+            <Button
+                android:id="@+id/btnSaveApi"
+                android:layout_width="166dp"
+                android:layout_height="45dp"
+                android:text="Сохранеить Api"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtEditApi" />
+
+            <TextView
+                android:id="@+id/txtLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Язык приложения:     Русский"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSaveApi" />
+
+            <Button
+                android:id="@+id/btnSetLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Изменить язык"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLanguage" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+

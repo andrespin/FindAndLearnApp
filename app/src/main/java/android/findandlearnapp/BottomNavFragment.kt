@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -64,6 +62,10 @@ class BottomNavFragment : Fragment() {
             when (menuItem.itemId) {
                 R.id.settings -> {
                     findNavController().navigate(R.id.settings)
+                    true
+                }
+                R.id.aboutApp -> {
+                    findNavController().navigate(R.id.aboutApp)
                     true
                 }
                 else -> false

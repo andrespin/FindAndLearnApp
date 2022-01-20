@@ -93,7 +93,6 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
     @Inject
     lateinit var provideWordRepo: IWordRepo
 
-
     fun getAllWordsFromDb(langOfWords: LanguageOfWords) {
         provideWordRepo.getAllWords().subscribeOn(Schedulers.io())
             .subscribe({ repos ->
