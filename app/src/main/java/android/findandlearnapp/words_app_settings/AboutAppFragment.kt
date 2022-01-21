@@ -102,5 +102,5 @@ class AboutAppFragment : Fragment() {
             checkedTxtApi.isChecked = false
             space.visibility = View.VISIBLE
         }
-    
+
 }

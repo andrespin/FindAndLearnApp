@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="ru_select_your_language_title">Выберите язык</string>
+
+    <string name="ru_cancel">Отмена</string>
+
+    <string name="ru_ok">Ок</string>
+
+</resources>
