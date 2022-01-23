@@ -91,5 +91,9 @@
     <string name="buttom_menu_words">words</string>
     <string name="bottom_menu_dictionary">dictionary</string>
     <string name="bottom_menu_test">test</string>
+    <string name="how_to_find_api">Как найти ключ Api ?</string>
+    <string name="about_app_info">Информация о приложении</string>
+    <string name="about_app_main_info">Позже тут будет выложена инфа</string>
+    <string name="how_to_find_api_main_info">Инфа будет позже размещена</string>
 
 </resources>

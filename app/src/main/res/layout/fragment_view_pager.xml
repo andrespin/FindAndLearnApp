@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_toolbar_back"
         app:tabIndicatorColor="@android:color/white"
-        app:tabSelectedTextColor="@android:color/white"
+        app:tabSelectedTextColor="@android:color/black"
         app:tabTextColor="@android:color/darker_gray" />
 
     <androidx.viewpager2.widget.ViewPager2

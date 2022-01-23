@@ -17,23 +17,4 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         loadLocale(this)
     }
-
-//    private fun loadLocale() {
-//        val sharedPref = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
-//        val localeToSet: String = sharedPref.getString("locale_to_set", "")!!
-//        setLocale(localeToSet)
-//    }
-//
-//    private fun setLocale(localeToSet: String) {
-//        val localeListToSet = LocaleList(Locale(localeToSet))
-//        LocaleList.setDefault(localeListToSet)
-//
-//        resources.configuration.setLocales(localeListToSet)
-//        resources.updateConfiguration(resources.configuration, resources.displayMetrics)
-//
-//        val sharedPref = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-//        sharedPref.putString("locale_to_set", localeToSet)
-//        sharedPref.apply()
-//    }
-
 }

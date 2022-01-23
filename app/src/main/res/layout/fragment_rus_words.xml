@@ -11,12 +11,11 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Russian" />
+            android:text="" />
 
         <Button
             android:id="@+id/btnDeleteChecked"
@@ -24,8 +23,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1.3"
             android:visibility="invisible"
+            android:background="@drawable/ic_toolbar_back"
             android:text="Удалить"
-            android:textSize="10sp"
+            android:textSize="35sp"
             android:textColor="@color/red"
             />
 
@@ -34,12 +34,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.3"
+            android:background="@drawable/ic_toolbar_back"
             android:visibility="invisible"
             android:text="Отмена"
-            android:textSize="10sp"
+            android:textSize="35sp"
             android:textColor="#0EF133">
         </Button>
-
 
     </LinearLayout>
 

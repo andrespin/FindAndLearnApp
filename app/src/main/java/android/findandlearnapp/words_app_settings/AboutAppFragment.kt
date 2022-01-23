@@ -1,5 +1,6 @@
 package android.findandlearnapp.words_app_settings
 
+import android.findandlearnapp.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,10 @@ class AboutAppFragment : Fragment() {
     private lateinit var binding: FragmentAboutAppBinding
 
     private lateinit var viewModel: AboutAppViewModel
+
+    val icon_visible = R.drawable.ic_arrow_down
+
+    val icon_gone = R.drawable.ic_arrow_left
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +75,6 @@ class AboutAppFragment : Fragment() {
         })
     }
 
-
     private fun setAboutAppVisible() =
         with(binding) {
             scrollAboutApp.visibility = View.VISIBLE
@@ -78,6 +82,7 @@ class AboutAppFragment : Fragment() {
             scrollApi.visibility = View.GONE
             checkedTxtApi.isChecked = false
             space.visibility = View.GONE
+            checkedTxtAboutApp.setCompoundDrawablesWithIntrinsicBounds( 0, 0, icon_visible , 0)
         }
 
     private fun setAboutAppInvisible() =
@@ -85,6 +90,7 @@ class AboutAppFragment : Fragment() {
             scrollAboutApp.visibility = View.GONE
             checkedTxtAboutApp.isChecked = false
             space.visibility = View.VISIBLE
+            checkedTxtAboutApp.setCompoundDrawablesWithIntrinsicBounds( 0, 0, icon_gone , 0)
         }
 
     private fun setApiVisible() =
@@ -94,6 +100,7 @@ class AboutAppFragment : Fragment() {
             scrollAboutApp.visibility = View.GONE
             checkedTxtAboutApp.isChecked = false
             space.visibility = View.GONE
+            checkedTxtApi.setCompoundDrawablesWithIntrinsicBounds( 0, 0, icon_visible, 0)
         }
 
     private fun setApiInvisible() =
@@ -101,6 +108,7 @@ class AboutAppFragment : Fragment() {
             scrollApi.visibility = View.GONE
             checkedTxtApi.isChecked = false
             space.visibility = View.VISIBLE
+            checkedTxtApi.setCompoundDrawablesWithIntrinsicBounds( 0, 0, icon_gone , 0)
         }
 
 }
