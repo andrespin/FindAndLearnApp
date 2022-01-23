@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.13425925925925927" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable-v24/ic_settings.xml" value="0.1" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_back_arrow.xml" value="0.1824074074074074" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_back_branches.xml" value="0.1824074074074074" />
@@ -13,8 +14,12 @@
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_books.xml" value="0.19375" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_checked_back.xml" value="0.2078125" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_corel_books.xml" value="0.19375" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_dictionary.xml" value="0.13796296296296295" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.13425925925925927" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_list.xml" value="0.13796296296296295" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_not_checked_back.xml" value="0.2078125" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_plus.xml" value="0.1921875" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_test.xml" value="0.13796296296296295" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_tick.xml" value="0.1921875" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_toolbal_background.xml" value="0.13333333333333333" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_toolbar_back.xml" value="0.1921875" />
@@ -34,9 +39,13 @@
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/settings_api_key.xml" value="0.17604166666666668" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/settings_app.xml" value="0.17604166666666668" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/settings_layout.xml" value="0.16666666666666666" />
-        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/menu/buttom_nav.xml" value="0.17604166666666668" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/menu/buttom_nav.xml" value="0.14666666666666667" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/menu/toolbar.xml" value="0.19166666666666668" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/menu/toolbar_return.xml" value="0.17291666666666666" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/mipmap-anydpi-v26/ic_book_launcher.xml" value="0.1" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/mipmap-anydpi-v26/ic_book_launcher_round.xml" value="0.1425925925925926" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.13425925925925927" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.13425925925925927" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/xml/root_preferences.xml" value="0.22" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/xml/settings_api_key.xml" value="0.1" />
       </map>

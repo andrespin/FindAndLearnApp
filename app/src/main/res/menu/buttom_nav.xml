@@ -6,11 +6,14 @@
 
     <item
         android:id="@+id/words_view_pager_graph"
-        android:title="words" />
+        android:icon="@drawable/ic_list"
+        android:title="" />
     <item
         android:id="@+id/dictionary_graph"
-        android:title="dictionary" />
+        android:icon="@drawable/ic_dictionary"
+        android:title="" />
     <item
         android:id="@+id/test_graph"
-        android:title="test" />
+        android:icon="@drawable/ic_test"
+        android:title="" />
 </menu>
