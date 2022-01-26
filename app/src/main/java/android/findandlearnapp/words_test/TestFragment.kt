@@ -40,7 +40,6 @@ class TestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         viewModel = ViewModelProvider(this).get(TestViewModel::class.java).apply {
             App.instance.appComponent.inject(this)
         }

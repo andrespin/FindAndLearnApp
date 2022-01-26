@@ -12,10 +12,13 @@
 
     <color name="red">#FF0000</color>
 
+    <color name="semi_red">#66FF0000</color>
+
+    <color name="semi_green">#6601FF38</color>
+
     <color name="checkedWord">#330067FF</color>
 
     <color name="notCheckedWord">#FFFFFFFF</color>
     <color name="settings_back">#24635353</color>
-
 
 </resources>

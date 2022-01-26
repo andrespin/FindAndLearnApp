@@ -75,7 +75,7 @@ class WordsManagerFragment : Fragment() {
         viewModel.liveDataNavigationEvent.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let {
                 val bundle = bundleOf(addedWordInfo to it)
-             //   findNavController().navigate(R.id.action_ru_words_to_word, bundle)
+              //  findNavController().navigate(R.id.action_ru_words_to_word, bundle)
             }
         })
     }

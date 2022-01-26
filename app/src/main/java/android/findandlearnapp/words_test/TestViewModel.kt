@@ -1,19 +1,19 @@
 package android.findandlearnapp.words_test
 
 import android.findandlearnapp.App
+import android.findandlearnapp.base.StringLanguage
+import android.findandlearnapp.base.getLanguageOfWord
 import android.findandlearnapp.database.WordEntity
 import android.findandlearnapp.dictionary.Event
 import android.findandlearnapp.dictionary.repository.IWordRepo
 import android.findandlearnapp.utils.EmptyField
 import android.findandlearnapp.utils.convertToWordTranslationsList
-import android.findandlearnapp.words_manager.AddedWord
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.IOException
 import javax.inject.Inject
-import kotlin.random.Random
 
 class TestViewModel : ViewModel() {
 
@@ -32,29 +32,51 @@ class TestViewModel : ViewModel() {
 
     val liveDataSendNoWordsMessage = MutableLiveData<Event<String>>()
 
-    private lateinit var nounsList: List<String>
-    private lateinit var verbsList: List<String>
-    private lateinit var adverbsList: List<String>
-    private lateinit var adjectivesList: List<String>
+    private lateinit var nounsListRu: List<String>
+    private lateinit var verbsListRu: List<String>
+    private lateinit var adverbsListRu: List<String>
+    private lateinit var adjectivesListRu: List<String>
 
-    private var myNouns = mutableListOf<MyAddedWord>()
-    private var myVerbs = mutableListOf<MyAddedWord>()
-    private var myAdverbs = mutableListOf<MyAddedWord>()
-    private var myAdjectives = mutableListOf<MyAddedWord>()
+
+    private var myNounsRu = mutableListOf<MyAddedWord>()
+    private var myVerbsRu = mutableListOf<MyAddedWord>()
+    private var myAdverbsRu = mutableListOf<MyAddedWord>()
+    private var myAdjectivesRu = mutableListOf<MyAddedWord>()
+
+    private var myNounsEn = mutableListOf<MyAddedWord>()
+    private var myVerbsEn = mutableListOf<MyAddedWord>()
+    private var myAdverbsEn = mutableListOf<MyAddedWord>()
+    private var myAdjectivesEn = mutableListOf<MyAddedWord>()
+
+    private var areWordsSplit = false
 
     private lateinit var addedWordsList: List<WordEntity>
+
+    private val addedWordsListRu = mutableListOf<WordEntity>()
+
+    private val addedWordsListEn = mutableListOf<WordEntity>()
 
     private val partOfSpeechSet = setOf("nouns", "verbs", "adverbs", "adjectives")
     private val partsOfSpeechList = listOf("nouns", "verbs", "adverbs", "adjectives")
 
     fun initLists() {
-        nounsList = convertToList(readTxtFile("ru_nouns.txt"))
-        verbsList = convertToList(readTxtFile("ru_verbs.txt"))
-        adverbsList = convertToList(readTxtFile("ru_adverbs.txt"))
-        adjectivesList = convertToList(readTxtFile("ru_adjectives.txt"))
+        nounsListRu = convertToList(readTxtFile("ru_nouns.txt"))
+        verbsListRu = convertToList(readTxtFile("ru_verbs.txt"))
+        adverbsListRu = convertToList(readTxtFile("ru_adverbs.txt"))
+        adjectivesListRu = convertToList(readTxtFile("ru_adjectives.txt"))
 
         initMyLists()
         createTestCard()
+    }
+
+    private fun splitWordsAccordingToLang(list: List<WordEntity>) {
+        for (i in 0 until list.size) {
+            getLanguageOfWord(list[i].textOrig)
+            when (getLanguageOfWord(list[i].textOrig)) {
+                StringLanguage.English -> addedWordsListEn.add(list[i])
+                StringLanguage.Russian -> addedWordsListRu.add(list[i])
+            }
+        }
     }
 
     fun createTestCard() {
@@ -63,51 +85,51 @@ class TestViewModel : ViewModel() {
 
         println("partOfSpeechSet.random(): $random")
 
-        if (myNouns.size > 0 || myVerbs.size > 0 || myAdverbs.size > 0 || myAdjectives.size > 0) {
+        if (myNounsRu.size > 0 || myVerbsRu.size > 0 || myAdverbsRu.size > 0 || myAdjectivesRu.size > 0) {
             when (random) {
                 "nouns" -> {
-                    if (myNouns.size > 0) {
-                        createWordRaw(myNouns, nounsList)
-                    } else if (myVerbs.size > 0) {
-                        createWordRaw(myVerbs, verbsList)
-                    } else if (myAdverbs.size > 0) {
-                        createWordRaw(myAdverbs, adverbsList)
-                    } else if (myAdjectives.size > 0) {
-                        createWordRaw(myAdjectives, adjectivesList)
+                    if (myNounsRu.size > 0) {
+                        createWordRaw(myNounsRu, nounsListRu)
+                    } else if (myVerbsRu.size > 0) {
+                        createWordRaw(myVerbsRu, verbsListRu)
+                    } else if (myAdverbsRu.size > 0) {
+                        createWordRaw(myAdverbsRu, adverbsListRu)
+                    } else if (myAdjectivesRu.size > 0) {
+                        createWordRaw(myAdjectivesRu, adjectivesListRu)
                     }
                 }
                 "verbs" -> {
-                    if (myVerbs.size > 0) {
-                        createWordRaw(myVerbs, verbsList)
-                    } else if (myNouns.size > 0) {
-                        createWordRaw(myNouns, nounsList)
-                    } else if (myAdverbs.size > 0) {
-                        createWordRaw(myAdverbs, adverbsList)
-                    } else if (myAdjectives.size > 0) {
-                        createWordRaw(myAdjectives, adjectivesList)
+                    if (myVerbsRu.size > 0) {
+                        createWordRaw(myVerbsRu, verbsListRu)
+                    } else if (myNounsRu.size > 0) {
+                        createWordRaw(myNounsRu, nounsListRu)
+                    } else if (myAdverbsRu.size > 0) {
+                        createWordRaw(myAdverbsRu, adverbsListRu)
+                    } else if (myAdjectivesRu.size > 0) {
+                        createWordRaw(myAdjectivesRu, adjectivesListRu)
                     }
                 }
                 "adverbs" -> {
-                    if (myAdverbs.size > 0) {
-                        createWordRaw(myAdverbs, adverbsList)
-                    } else if (myNouns.size > 0) {
-                        createWordRaw(myNouns, nounsList)
-                    } else if (myVerbs.size > 0) {
-                        createWordRaw(myVerbs, verbsList)
-                    } else if (myAdjectives.size > 0) {
-                        createWordRaw(myAdjectives, adjectivesList)
+                    if (myAdverbsRu.size > 0) {
+                        createWordRaw(myAdverbsRu, adverbsListRu)
+                    } else if (myNounsRu.size > 0) {
+                        createWordRaw(myNounsRu, nounsListRu)
+                    } else if (myVerbsRu.size > 0) {
+                        createWordRaw(myVerbsRu, verbsListRu)
+                    } else if (myAdjectivesRu.size > 0) {
+                        createWordRaw(myAdjectivesRu, adjectivesListRu)
                     }
                 }
                 "adjectives" -> {
-                    println("myAdjectives.size: ${myAdjectives.size}")
-                    if (myAdjectives.size > 0) {
-                        createWordRaw(myAdjectives, adjectivesList)
-                    } else if (myNouns.size > 0) {
-                        createWordRaw(myNouns, nounsList)
-                    } else if (myVerbs.size > 0) {
-                        createWordRaw(myVerbs, verbsList)
-                    } else if (myAdverbs.size > 0) {
-                        createWordRaw(myAdverbs, adverbsList)
+                    println("myAdjectives.size: ${myAdjectivesRu.size}")
+                    if (myAdjectivesRu.size > 0) {
+                        createWordRaw(myAdjectivesRu, adjectivesListRu)
+                    } else if (myNounsRu.size > 0) {
+                        createWordRaw(myNounsRu, nounsListRu)
+                    } else if (myVerbsRu.size > 0) {
+                        createWordRaw(myVerbsRu, verbsListRu)
+                    } else if (myAdverbsRu.size > 0) {
+                        createWordRaw(myAdverbsRu, adverbsListRu)
                     }
                 }
             }
@@ -122,7 +144,7 @@ class TestViewModel : ViewModel() {
 
     private fun createWordRaw(myWords: List<MyAddedWord>, words: List<String>) {
 
-        val rightAnswerPosition = 0 // (0..3).random()
+        val rightAnswerPosition = (0..3).random()
         val randomWordNumber = (0 until myWords.size).random()
         println("myWords.size: ${myWords.size}, randomWordNumber: $randomWordNumber, myWords[randomWordNumber].translations ${myWords[randomWordNumber].translations} ")
 
@@ -187,9 +209,56 @@ class TestViewModel : ViewModel() {
     }
 
     private fun initMyLists() {
-        for (i in 0 until addedWordsList.size) {
+        initAllWords()
+    }
+
+
+
+    private fun initMyRussianWords() {
+        for (i in 0 until addedWordsListRu.size) {
             if (addedWordsList[i].translationsOfNoun != EmptyField) {
-                myNouns.add(
+                myNounsRu.add(
+                    MyAddedWord(
+                        addedWordsList[i].textOrig,
+                        convertToWordTranslationsList(addedWordsList[i].translationsOfNoun)
+                    )
+                )
+            }
+            if (addedWordsList[i].translationsOfVerb != EmptyField) {
+                myVerbsRu.add(
+                    MyAddedWord(
+                        addedWordsList[i].textOrig,
+                        convertToWordTranslationsList(addedWordsList[i].translationsOfVerb)
+                    )
+                )
+            }
+            if (addedWordsList[i].translationsOfAdverb != EmptyField) {
+                myAdverbsRu.add(
+                    MyAddedWord(
+                        addedWordsList[i].textOrig,
+                        convertToWordTranslationsList(addedWordsList[i].translationsOfAdverb)
+                    )
+                )
+
+            }
+            if (addedWordsList[i].translationsOfAdjective != EmptyField) {
+
+                println("addedWordsList[$i].translationsOfAdjective: ${addedWordsList[i].translationsOfAdjective}")
+
+                myAdjectivesRu.add(
+                    MyAddedWord(
+                        addedWordsList[i].textOrig,
+                        convertToWordTranslationsList(addedWordsList[i].translationsOfAdjective)
+                    )
+                )
+            }
+        }
+    }
+
+    private fun initMyEnglishWords() {
+        for (i in 0 until addedWordsListEn.size) {
+            if (addedWordsList[i].translationsOfNoun != EmptyField) {
+                myNounsEn.add(
                     MyAddedWord(
                         addedWordsList[i].textOrig,
                         convertToWordTranslationsList(addedWordsList[i].translationsOfNoun)
@@ -198,7 +267,7 @@ class TestViewModel : ViewModel() {
             }
 
             if (addedWordsList[i].translationsOfVerb != EmptyField) {
-                myVerbs.add(
+                myVerbsEn.add(
                     MyAddedWord(
                         addedWordsList[i].textOrig,
                         convertToWordTranslationsList(addedWordsList[i].translationsOfVerb)
@@ -207,20 +276,19 @@ class TestViewModel : ViewModel() {
             }
 
             if (addedWordsList[i].translationsOfAdverb != EmptyField) {
-                myAdverbs.add(
+                myAdverbsEn.add(
                     MyAddedWord(
                         addedWordsList[i].textOrig,
                         convertToWordTranslationsList(addedWordsList[i].translationsOfAdverb)
                     )
                 )
-
             }
 
             if (addedWordsList[i].translationsOfAdjective != EmptyField) {
 
                 println("addedWordsList[$i].translationsOfAdjective: ${addedWordsList[i].translationsOfAdjective}")
 
-                myAdjectives.add(
+                myAdjectivesRu.add(
                     MyAddedWord(
                         addedWordsList[i].textOrig,
                         convertToWordTranslationsList(addedWordsList[i].translationsOfAdjective)
@@ -229,14 +297,8 @@ class TestViewModel : ViewModel() {
             }
         }
 
-
-        println("myNouns test: ${myNouns}")
-        println("myVerbs test: ${myVerbs}")
-        println("myAdverbs test: ${myAdverbs}")
-        println("myAdjectives test: ${myAdjectives}")
-
-
     }
+
 
     @Inject
     lateinit var provideWordRepo: IWordRepo
@@ -245,6 +307,7 @@ class TestViewModel : ViewModel() {
         provideWordRepo.getAllWords().subscribeOn(Schedulers.io())
             .subscribe({ repos ->
                 addedWordsList = repos
+                splitWordsAccordingToLang(addedWordsList)
             }, {
                 Log.d("Error: ", it.message!!)
             })
@@ -290,5 +353,57 @@ class TestViewModel : ViewModel() {
         }
         return list
     }
+
+
+
+    private fun initAllWords() {
+        for (i in 0 until addedWordsList.size) {
+            if (addedWordsList[i].translationsOfNoun != EmptyField) {
+                myNounsRu.add(
+                    MyAddedWord(
+                        addedWordsList[i].textOrig,
+                        convertToWordTranslationsList(addedWordsList[i].translationsOfNoun)
+                    )
+                )
+            }
+
+            if (addedWordsList[i].translationsOfVerb != EmptyField) {
+                myVerbsRu.add(
+                    MyAddedWord(
+                        addedWordsList[i].textOrig,
+                        convertToWordTranslationsList(addedWordsList[i].translationsOfVerb)
+                    )
+                )
+            }
+
+            if (addedWordsList[i].translationsOfAdverb != EmptyField) {
+                myAdverbsRu.add(
+                    MyAddedWord(
+                        addedWordsList[i].textOrig,
+                        convertToWordTranslationsList(addedWordsList[i].translationsOfAdverb)
+                    )
+                )
+
+            }
+
+            if (addedWordsList[i].translationsOfAdjective != EmptyField) {
+
+                println("addedWordsList[$i].translationsOfAdjective: ${addedWordsList[i].translationsOfAdjective}")
+
+                myAdjectivesRu.add(
+                    MyAddedWord(
+                        addedWordsList[i].textOrig,
+                        convertToWordTranslationsList(addedWordsList[i].translationsOfAdjective)
+                    )
+                )
+            }
+        }
+
+        println("myNouns test: ${myNounsRu}")
+        println("myVerbs test: ${myVerbsRu}")
+        println("myAdverbs test: ${myAdverbsRu}")
+        println("myAdjectives test: ${myAdjectivesRu}")
+    }
+
 
 }

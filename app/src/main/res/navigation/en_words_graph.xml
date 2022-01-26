@@ -5,15 +5,19 @@
     android:id="@+id/en_words_graph"
     app:startDestination="@id/en_words">
 
+<!--    https://github.com/android/architecture-components-samples-->
     <fragment
         android:id="@+id/en_words"
         android:name="android.findandlearnapp.words_manager.en_words.EngWordsFragment"
-        android:label="MoviesFragment"
         tools:layout="@layout/fragment_eng_words">
 
         <action
             android:id="@+id/action_en_words_to_word"
             app:destination="@id/word" />
+        <action
+            android:id="@+id/action_en_words_to_AddingToListDialogFragment"
+            app:destination="@id/AddingToListDialogFragment" />
+
 
     </fragment>
 
@@ -23,6 +27,35 @@
         android:label="WordFragment"
         tools:layout="@layout/fragment_word">
 
+
+        <action
+            android:id="@+id/action_word_to_en_words"
+            app:destination="@id/en_words" />
     </fragment>
+
+
+    <dialog
+        android:id="@+id/AddingToListDialogFragment"
+        android:name="android.findandlearnapp.dialogs.AddingToListDialog">
+        <argument
+            android:name="itemId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <action
+            android:id="@+id/action_AddingToListDialogFragment_to_CreatingNewListDialogFragment"
+            app:destination="@id/CreatingNewListDialogFragment" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/CreatingNewListDialogFragment"
+        android:name="android.findandlearnapp.dialogs.CreatingNewListDialog">
+        <argument
+            android:name="itemId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <action
+            android:id="@+id/action_CreatingNewListDialogFragment_to_en_words"
+            app:destination="@id/en_words" />
+    </dialog>
 
 </navigation>

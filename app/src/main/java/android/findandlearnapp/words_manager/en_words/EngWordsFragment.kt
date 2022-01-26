@@ -17,6 +17,7 @@ import android.findandlearnapp.words_manager.addedWordInfo
 import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -57,6 +58,10 @@ class EngWordsFragment : Fragment() {
                 Log.d("event status", "works")
                 viewModel.setAddedWord(it)
                 adapter.updateWordData(it)
+                with(binding) {
+                    btnMyList.visibility = View.GONE
+                    btnAddToList.visibility = View.VISIBLE
+                }
             }
         })
 
@@ -100,6 +105,21 @@ class EngWordsFragment : Fragment() {
         binding.btnCancelChecked.setOnClickListener {
             viewModel.setAddedWordsUnchecked()
         }
+
+        binding.btnMyList.setOnClickListener {
+
+        }
+
+        binding.btnAddToList.setOnClickListener {
+         //   val bundle = bundleOf(addedWordInfo to it)
+
+            it.findNavController().navigate(
+                R.id.action_en_words_to_AddingToListDialogFragment
+            )
+
+
+        }
+
     }
 
     private fun displayData() {
