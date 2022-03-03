@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".words_test.WordTestFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Все сохранённые слова и части речи"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="310dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="130dp"
+        android:background="@drawable/back_radio_group"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radio_button_1"
+            android:layout_marginRight="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=""
+            tools:text="Text 1" />
+
+        <RadioButton
+            android:id="@+id/radio_button_2"
+            android:layout_marginRight="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=""
+            tools:text="Text 2" />
+
+        <RadioButton
+            android:id="@+id/radio_button_3"
+            android:layout_marginRight="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=""
+            tools:text="Text 3" />
+
+        <RadioButton
+            android:id="@+id/radio_button_4"
+            android:layout_marginRight="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=""
+            tools:text="Text 4" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="проверить"
+        android:textSize="18sp"
+        android:translationZ="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCheck"
+        app:layout_constraintEnd_toEndOf="@+id/imgCheck"
+        app:layout_constraintStart_toStartOf="@+id/imgCheck"
+        app:layout_constraintTop_toTopOf="@+id/imgCheck" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="далее"
+        android:textSize="18sp"
+        android:translationZ="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgNext"
+        app:layout_constraintEnd_toEndOf="@+id/imgNext"
+        app:layout_constraintStart_toStartOf="@+id/imgNext"
+        app:layout_constraintTop_toTopOf="@+id/imgNext" />
+
+    <ImageView
+        android:id="@+id/imgNext"
+        android:layout_width="125dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="50dp"
+        android:src="@drawable/back_btn_check_and_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <ImageView
+        android:id="@+id/imgCheck"
+        android:layout_width="125dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/back_btn_check_and_next"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <ImageView
+        android:id="@+id/imgGetResult"
+        android:layout_width="220dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="96dp"
+        android:src="@drawable/back_btn_result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgNext" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="узнать результат"
+        android:textSize="18sp"
+        android:translationZ="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgGetResult"
+        app:layout_constraintEnd_toEndOf="@+id/imgGetResult"
+        app:layout_constraintStart_toStartOf="@+id/imgGetResult"
+        app:layout_constraintTop_toTopOf="@+id/imgGetResult" />
+
+    <TextView
+        android:id="@+id/txtSelectWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="30dp"
+        android:text="Выберите подходящий вариант \n
+         перевода слова money"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgRadio1Answer"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="135dp"
+        android:layout_marginEnd="58dp"
+        android:src="@drawable/ic_result_wrong_answer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgRadio2Answer"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="175dp"
+        android:layout_marginEnd="58dp"
+        android:src="@drawable/ic_result_right_answer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgRadio3Answer"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="215dp"
+        android:layout_marginEnd="58dp"
+        android:src="@drawable/ic_result_wrong_answer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgRadio4Answer"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="255dp"
+        android:layout_marginEnd="58dp"
+        android:src="@drawable/ic_result_wrong_answer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

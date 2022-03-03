@@ -4,6 +4,26 @@ enum class StringLanguage {
     Russian, English, NotIdentified
 }
 
+fun containsLetters(str: String): Boolean {
+
+    val array = str.toCharArray()
+
+    val english = mutableListOf<Char>()
+    english += 'A'..'Z'
+    english += 'a'..'z'
+
+    val russian = mutableListOf<Char>()
+    russian += 'А'..'Я'
+    russian += 'а'..'я'
+
+    for (i in array.indices) {
+        if (array[i] in english || array[i] in russian) {
+            return true
+        }
+    }
+    return false
+}
+
 fun getLanguageOfWord(string: String): StringLanguage {
 
     val map = mutableMapOf("isRussian" to false, "isEnglish" to false, "NotIdentified" to false)

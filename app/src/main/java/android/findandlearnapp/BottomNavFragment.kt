@@ -68,6 +68,11 @@ class BottomNavFragment : Fragment() {
                     findNavController().navigate(R.id.aboutApp)
                     true
                 }
+
+                R.id.menuMyWordLists -> {
+                    findNavController().navigate(R.id.action_bottom_nav_to_myWordLists)
+                    true
+                }
                 else -> false
             }
         }

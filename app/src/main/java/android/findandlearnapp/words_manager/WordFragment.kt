@@ -50,7 +50,6 @@ class WordFragment : Fragment() {
     }
 
     private fun init() {
-
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
         }

@@ -8,10 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.findandlearnapp.databinding.FragmentTestBinding
-import android.findandlearnapp.words_manager.WordsManagerViewModel
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import java.io.*
 
 
 // https://www.blueappsoftware.com/how-to-read-text-file-in-android-tutorial/
@@ -113,7 +111,7 @@ class TestFragment : Fragment() {
             }
         })
 
-        viewModel.liveDataCreateCardEvent.observe(viewLifecycleOwner, { event ->
+        viewModel.eventCreateCard.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let {
                 binding.radioGroup.visibility = View.VISIBLE
                 binding.radioButton1.text = it.word1

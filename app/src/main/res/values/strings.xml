@@ -18,7 +18,6 @@
     <string name="ru_ok">Ок</string>
 
 
-
     <string name="label_logout">Log Out</string>
     <string name="msg_logout">Do you want to logout from the app?</string>
     <string name="label_cancel">Cancel</string>
@@ -28,7 +27,6 @@
     <string name="label_submit">Submit</string>
     <string name="label_simple_dialog">Simple Dialog</string>
     <string name="label_dialog_with_data">Dialog With Data</string>
-
 
 
     <!--English-->

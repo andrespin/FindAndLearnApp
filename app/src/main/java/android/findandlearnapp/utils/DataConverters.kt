@@ -1,6 +1,7 @@
 package android.findandlearnapp.utils
 
 import android.findandlearnapp.database.WordEntity
+import android.findandlearnapp.database.WordInListEntity
 import android.findandlearnapp.dictionary.data.*
 import android.findandlearnapp.words_manager.AddedWord
 import android.util.Log
@@ -32,6 +33,18 @@ fun getEngWords(wordsEntity: List<WordEntity>): List<WordEntity> {
     return list
 }
 
+
+fun convertToAddedWord(
+    wordsInListEntity: List<WordInListEntity>,
+    areWordsInList: Boolean
+): List<AddedWord> {
+    val list = mutableListOf<AddedWord>()
+    for (i in 0 until wordsInListEntity.size) {
+        val wordEntity = convertToWordEntity(wordsInListEntity[i])
+        list.add(AddedWord(wordEntity, addedWordIsNotChecked, false, i))
+    }
+    return list
+}
 
 fun convertToAddedWord(wordsEntity: List<WordEntity>): List<AddedWord> {
     val list = mutableListOf<AddedWord>()
@@ -290,6 +303,47 @@ fun convertToWordEntity(word: Word): WordEntity {
     assignEmptyFieldToTranslationVars()
     return wordEntity
 }
+
+private fun convertToWordEntity(word: WordInListEntity) : WordEntity {
+    val wordEntity = WordEntity(
+        word.textOrig,
+        word.txtPhonetics,
+        word.translationsOfNoun,
+        word.translationsOfPronoun,
+        word.translationsOfAdjective,
+        word.translationsOfVerb,
+        word.translationsOfAdverb,
+        word.translationsOfPreposition,
+        word.translationsOfConjunction,
+        word.translationsOfInterjection,
+        word.translationsOfNumeral,
+        word.translationsOfParticle,
+        word.translationsOfInvariable,
+        word.translationsOfParticiple,
+        word.translationsOfAdverbialParticiple
+    )
+    return wordEntity
+}
+
+fun convertToWordInListEntity(word: WordEntity, name: String) = WordInListEntity(
+    word.textOrig,
+    name,
+    word.txtPhonetics,
+    translationsOfNoun,
+    translationsOfPronoun,
+    translationsOfAdjective,
+    translationsOfVerb,
+    translationsOfAdverb,
+    translationsOfPreposition,
+    translationsOfConjunction,
+    translationsOfInterjection,
+    translationsOfNumeral,
+    translationsOfParticle,
+    translationsOfInvariable,
+    translationsOfParticiple,
+    translationsOfAdverbialParticiple
+)
+
 
 fun assignEmptyFieldToTranslationVars() {
     translationsOfNoun = EmptyField

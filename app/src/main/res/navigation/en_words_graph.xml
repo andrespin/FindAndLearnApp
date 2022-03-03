@@ -18,7 +18,6 @@
             android:id="@+id/action_en_words_to_AddingToListDialogFragment"
             app:destination="@id/AddingToListDialogFragment" />
 
-
     </fragment>
 
     <fragment

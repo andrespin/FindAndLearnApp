@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.findandlearnapp.databinding.FragmentWordsManagerBinding
 import android.findandlearnapp.words_manager.adapter.WordsManagerAdapter
+import android.findandlearnapp.words_manager.en_words.checkedWords
 import android.os.Parcelable
 import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import androidx.navigation.fragment.findNavController
@@ -41,6 +43,9 @@ class WordsManagerFragment : Fragment() {
         }.root
     }
 
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
@@ -61,8 +66,7 @@ class WordsManagerFragment : Fragment() {
 
         viewModel.liveDataButtonsVisibility.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let {
-                binding.btnCancelChecked.visibility = it.visibility
-                binding.btnDeleteChecked.visibility = it.visibility
+                binding.layoutWithButtons.visibility = it.visibility
             }
         })
 
@@ -75,7 +79,7 @@ class WordsManagerFragment : Fragment() {
         viewModel.liveDataNavigationEvent.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let {
                 val bundle = bundleOf(addedWordInfo to it)
-              //  findNavController().navigate(R.id.action_ru_words_to_word, bundle)
+                findNavController().navigate(R.id.action_en_words_to_word, bundle)
             }
         })
     }
@@ -92,6 +96,13 @@ class WordsManagerFragment : Fragment() {
     }
 
     private fun initButtons() {
+
+        val navController = findNavController()
+//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<WordList>(keyWordsList)
+//            ?.observe(viewLifecycleOwner) {
+//                viewModel.saveToList(it, viewModel.getCheckedWords())
+//            }
+
         binding.btnDeleteChecked.setOnClickListener {
             viewModel.deleteAddedWords()
         }
@@ -101,10 +112,18 @@ class WordsManagerFragment : Fragment() {
         }
 
 
+        binding.btnReplaceToAnotherList.setOnClickListener {
+            println("viewModel.getCheckedWords(true): ${viewModel.getCheckedWords(true)}")
+            val bundle = bundleOf(checkedWords to viewModel.getCheckedWords(true))
+            it.findNavController().navigate(
+                R.id.action_en_words_to_AddingToListDialogFragment,
+                bundle
+            )
+        }
     }
 
     private fun displayData() {
-        viewModel.getAllWordsFromDb(LanguageOfWords.All_words)
+        viewModel.getAllWordsFromDb(LanguageOfWords.English)
         viewModel.liveDataWords.observe(
             viewLifecycleOwner,
             {

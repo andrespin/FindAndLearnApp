@@ -2,8 +2,11 @@ package android.findandlearnapp.words_manager
 
 import android.findandlearnapp.base.BaseViewModel
 import android.findandlearnapp.database.WordEntity
+import android.findandlearnapp.database.WordInListEntity
+import android.findandlearnapp.dialogs.adapter.WordList
 import android.findandlearnapp.dictionary.Event
 import android.findandlearnapp.dictionary.data.AppState
+import android.findandlearnapp.dictionary.repository.IWordInListRepo
 import android.findandlearnapp.dictionary.repository.IWordRepo
 import android.findandlearnapp.utils.*
 import android.os.Parcel
@@ -67,7 +70,13 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
 
     val liveDataNavigationEvent = MutableLiveData<Event<AddedWord>>()
 
+    val eventNavigationToWord = MutableLiveData<Event<AddedWord>>()
+
+    val getWordsInList = MutableLiveData<List<AddedWord>>()
+
     private var addedWordsList = mutableListOf<AddedWord>()
+
+    private var checkedAddedWordsList = mutableListOf<AddedWord>()
 
     var isChecked = false
 
@@ -90,6 +99,39 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
         setButtonsVisibility()
     }
 
+
+    fun deleteWordsInCurrentList() {
+        val listOfWordsToDelete = mutableListOf<AddedWord>()
+        for (i in 0 until addedWordsList.size) {
+            if (addedWordsList[i].isLongClick!!) {
+                provideWordInListRepo.deleteWordInListFromDatabase(
+                    addedWordsList[i].wordEntity.textOrig
+                )
+                listOfWordsToDelete.add(addedWordsList[i])
+            }
+        }
+        for (i in 0 until listOfWordsToDelete.size) {
+            addedWordsList.remove(listOfWordsToDelete[i])
+        }
+        liveDataWords.postValue(addedWordsList)
+        findCheckedWords(addedWordsList)
+        setButtonsVisibility()
+    }
+
+    fun getWordsInCurrentList(listName: String) {
+        provideWordInListRepo.getAllWordsInListFromDatabase().subscribeOn(Schedulers.io())
+            .subscribe({ repos ->
+                val words = getWordsFromList(repos, listName)
+                val myWords = convertToAddedWord(words, true) as MutableList<AddedWord>
+                setAddedWords(
+                    myWords
+                )
+                getWordsInList.postValue(myWords)
+            }, {
+                Log.d("Error: ", it.message!!)
+            })
+    }
+
     @Inject
     lateinit var provideWordRepo: IWordRepo
 
@@ -102,6 +144,7 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
                 handleError(it)
             })
     }
+
 
     private fun setWords(langOfWords: LanguageOfWords, repos: List<WordEntity>) {
         when (langOfWords) {
@@ -152,7 +195,7 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
         checkWord(addedWord)
     }
 
-    fun setAddedWords(list: MutableList<AddedWord>) {
+    private fun setAddedWords(list: MutableList<AddedWord>) {
         addedWordsList = list
     }
 
@@ -171,11 +214,40 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
         liveDataCheckedWords.postValue(Event(addedWordsList))
     }
 
+
+    fun getCheckedWords() = checkedAddedWordsList
+
+    fun getCheckedWords(getOnlyListOfStrings: Boolean): Array<String> {
+        val list = mutableListOf<String>()
+        for (i in 0 until checkedAddedWordsList.size) {
+            list.add(checkedAddedWordsList[i].wordEntity.textOrig)
+        }
+
+
+        val strings = Array(list.size) { "" }
+
+        for (i in 0 until list.size) {
+            strings[i] = list[i]
+        }
+        return strings
+    }
+
+    @Inject
+    lateinit var provideWordInListRepo: IWordInListRepo
+
+    fun saveToList(list: WordList, words: List<AddedWord>) {
+        for (i in 0 until words.size) {
+            provideWordInListRepo.addWordInListToDatabase(
+                convertToWordInListEntity(words[i].wordEntity, list.name)
+            )
+        }
+    }
+
     private fun setButtonsVisibility() {
         if (isChecked) {
             liveDataButtonsVisibility.postValue(Event(Visibility(View.VISIBLE)))
         } else {
-            liveDataButtonsVisibility.postValue(Event(Visibility(View.INVISIBLE)))
+            liveDataButtonsVisibility.postValue(Event(Visibility(View.GONE)))
         }
     }
 
@@ -183,11 +255,13 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
 
         when (addedWord.isLongClick) {
             true -> {
+                checkedAddedWordsList.remove(addedWord)
                 addedWord.isLongClick = false
                 addedWord.background = addedWordIsNotChecked
                 setAddedWord(addedWord)
             }
             false -> {
+                checkedAddedWordsList.add(addedWord)
                 addedWord.isLongClick = true
                 addedWord.background = addedWordIsChecked
                 setAddedWord(addedWord)
@@ -203,6 +277,6 @@ class WordsManagerViewModel : BaseViewModel<AppState>() {
     }
 
     override fun handleError(error: Throwable) {
-        TODO("Not yet implemented")
+        error.printStackTrace()
     }
 }

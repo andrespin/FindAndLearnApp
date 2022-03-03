@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/test_graph"
-    app:startDestination="@id/test">
+    app:startDestination="@id/selectTest">
 
     <fragment
         android:id="@+id/test"
@@ -12,6 +12,74 @@
         tools:layout="@layout/fragment_test">
 
     </fragment>
+
+
+    <fragment
+        android:id="@+id/selectTest"
+        android:name="android.findandlearnapp.words_test.SelectTestFragment"
+        android:label="MoviesFragment"
+        tools:layout="@layout/fragment_select_test">
+
+        <action
+            android:id="@+id/action_selectTest_to_wordTestFragment"
+            app:destination="@id/wordTestFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/wordTestFragment"
+        android:name="android.findandlearnapp.words_test.WordTestFragment"
+        android:label="MoviesFragment"
+        tools:layout="@layout/fragment_word_test">
+
+        <action
+            android:id="@+id/action_wordTestFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="android.findandlearnapp.words_test.ResultFragment"
+        android:label="MoviesFragment"
+        tools:layout="@layout/fragment_result">
+
+        <action
+            android:id="@+id/action_resultFragment_to_AddingToListDialogFragment"
+            app:destination="@id/AddingToListDialogFragment" />
+    </fragment>
+
+
+    <dialog
+        android:id="@+id/AddingToListDialogFragment"
+        android:name="android.findandlearnapp.dialogs.AddingToListDialog"
+        tools:layout="@layout/dialog_adding"
+        >
+
+        <argument
+            android:name="itemId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <action
+            android:id="@+id/action_AddingToListDialogFragment_to_CreatingNewListDialogFragment2"
+            app:destination="@id/CreatingNewListDialogFragment" />
+
+    </dialog>
+
+    <dialog
+        android:id="@+id/CreatingNewListDialogFragment"
+        android:name="android.findandlearnapp.dialogs.CreatingNewListDialog"
+        tools:layout="@layout/dialog_creating_new_list"
+        >
+        <argument
+            android:name="itemId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+
+    </dialog>
+
+
+
+
 
 </navigation>
 

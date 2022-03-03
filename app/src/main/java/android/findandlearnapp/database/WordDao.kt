@@ -26,7 +26,4 @@ interface WordDao {
     @Query("SELECT * FROM words_table WHERE textOrig=:textOrig")
     fun getWord(textOrig: String): Single<WordEntity>
 
-//    @Query("SELECT * FROM words_table WHERE textOrig=:textOrig")
-//    fun getWord(textOrig: String): Single<WordEntity>
-
 }

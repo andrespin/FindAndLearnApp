@@ -8,22 +8,26 @@
     <fragment
         android:id="@+id/words_view_pager"
         android:name="android.findandlearnapp.words_manager.ViewPagerFragment"
-        android:label="MoviesFragment"
         tools:layout="@layout/fragment_view_pager">
     </fragment>
 
     <fragment
         android:id="@+id/settings"
         android:name="android.findandlearnapp.words_app_settings.SettingsFragment"
-        android:label="MoviesFragment"
         tools:layout="@layout/fragment_settings">
     </fragment>
 
     <fragment
         android:id="@+id/aboutApp"
         android:name="android.findandlearnapp.words_app_settings.AboutAppFragment"
-        android:label="MoviesFragment"
         tools:layout="@layout/fragment_about_app">
+    </fragment>
+
+    <fragment
+        android:id="@+id/myWordLists"
+        android:name="android.findandlearnapp.words_manager.mylists.MyListsFragment"
+        android:label="MyListsFragment"
+        tools:layout="@layout/fragment_my_lists">
     </fragment>
 
 </navigation>

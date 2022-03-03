@@ -8,7 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.findandlearnapp.R
 import android.findandlearnapp.databinding.FragmentEngWordsBinding
-import android.findandlearnapp.databinding.FragmentWordsManagerBinding
+import android.findandlearnapp.dialogs.adapter.WordList
+import android.findandlearnapp.dialogs.keyWordsList
 import android.findandlearnapp.words_manager.AddedWord
 import android.findandlearnapp.words_manager.LanguageOfWords
 import android.findandlearnapp.words_manager.WordsManagerViewModel
@@ -20,6 +21,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+
+const val checkedWords = "checked words"
 
 class EngWordsFragment : Fragment() {
 
@@ -58,17 +61,12 @@ class EngWordsFragment : Fragment() {
                 Log.d("event status", "works")
                 viewModel.setAddedWord(it)
                 adapter.updateWordData(it)
-                with(binding) {
-                    btnMyList.visibility = View.GONE
-                    btnAddToList.visibility = View.VISIBLE
-                }
             }
         })
 
         viewModel.liveDataButtonsVisibility.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let {
-                binding.btnCancelChecked.visibility = it.visibility
-                binding.btnDeleteChecked.visibility = it.visibility
+                binding.layoutWithButtons.visibility = it.visibility
             }
         })
 
@@ -98,6 +96,13 @@ class EngWordsFragment : Fragment() {
     }
 
     private fun initButtons() {
+
+        val navController = findNavController()
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<WordList>(keyWordsList)
+            ?.observe(viewLifecycleOwner) {
+                viewModel.saveToList(it, viewModel.getCheckedWords())
+            }
+
         binding.btnDeleteChecked.setOnClickListener {
             viewModel.deleteAddedWords()
         }
@@ -106,20 +111,14 @@ class EngWordsFragment : Fragment() {
             viewModel.setAddedWordsUnchecked()
         }
 
-        binding.btnMyList.setOnClickListener {
-
-        }
-
         binding.btnAddToList.setOnClickListener {
-         //   val bundle = bundleOf(addedWordInfo to it)
-
+            println("viewModel.getCheckedWords(true): ${viewModel.getCheckedWords(true)}")
+            val bundle = bundleOf(checkedWords to viewModel.getCheckedWords(true))
             it.findNavController().navigate(
-                R.id.action_en_words_to_AddingToListDialogFragment
+                R.id.action_en_words_to_AddingToListDialogFragment,
+                bundle
             )
-
-
         }
-
     }
 
     private fun displayData() {

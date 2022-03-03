@@ -1,6 +1,7 @@
 package android.findandlearnapp.words_test
 
 import android.findandlearnapp.App
+import android.findandlearnapp.R
 import android.findandlearnapp.base.StringLanguage
 import android.findandlearnapp.base.getLanguageOfWord
 import android.findandlearnapp.database.WordEntity
@@ -9,6 +10,8 @@ import android.findandlearnapp.dictionary.repository.IWordRepo
 import android.findandlearnapp.utils.EmptyField
 import android.findandlearnapp.utils.convertToWordTranslationsList
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -28,14 +31,29 @@ class TestViewModel : ViewModel() {
         val rightPosition: Int
     )
 
-    val liveDataCreateCardEvent = MutableLiveData<Event<WordsCard>>()
+    data class RadioData(val color: Int, val img: Int)
+
+    val eventCreateCard = MutableLiveData<Event<WordsCard>>()
 
     val liveDataSendNoWordsMessage = MutableLiveData<Event<String>>()
+
+    val eventRadioButton1SetColor = MutableLiveData<Event<RadioData>>()
+    val eventRadioButton2SetColor = MutableLiveData<Event<RadioData>>()
+    val eventRadioButton3SetColor = MutableLiveData<Event<RadioData>>()
+    val eventRadioButton4SetColor = MutableLiveData<Event<RadioData>>()
+
+    val eventToastMessege = MutableLiveData<Event<String>>()
+
 
     private lateinit var nounsListRu: List<String>
     private lateinit var verbsListRu: List<String>
     private lateinit var adverbsListRu: List<String>
     private lateinit var adjectivesListRu: List<String>
+
+
+    private var rightAnswersNumber = 0
+
+    private var totalAnswersNumber = 0
 
 
     private var myNounsRu = mutableListOf<MyAddedWord>()
@@ -77,6 +95,42 @@ class TestViewModel : ViewModel() {
                 StringLanguage.Russian -> addedWordsListRu.add(list[i])
             }
         }
+    }
+
+    fun getTotalAnswersNumber() = totalAnswersNumber
+
+    fun getRightAnswersNumber() = rightAnswersNumber
+
+    fun listenRadioButton(selectedPosition: Int?, rightPosition: Int?) {
+
+        if (selectedPosition == rightPosition) {
+            rightAnswersNumber++
+            totalAnswersNumber++
+            when (selectedPosition) {
+                0 -> eventRadioButton1SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_right_answer)))
+                1 -> eventRadioButton2SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_right_answer)))
+                2 -> eventRadioButton3SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_right_answer)))
+                3 -> eventRadioButton4SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_right_answer)))
+            }
+        } else if (selectedPosition == null) {
+            eventToastMessege.postValue(Event("Поле с ответом не выбрано"))
+//            Toast.makeText(requireContext(), "Поле с ответом не выбрано", Toast.LENGTH_SHORT).show()
+        } else {
+            totalAnswersNumber++
+            when (selectedPosition) {
+                0 -> eventRadioButton1SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_wrong_answer)))
+                1 -> eventRadioButton2SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_wrong_answer)))
+                2 -> eventRadioButton3SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_wrong_answer)))
+                3 -> eventRadioButton4SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_wrong_answer)))
+            }
+            when (rightPosition) {
+                0 -> eventRadioButton1SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_right_answer)))
+                1 -> eventRadioButton2SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_right_answer)))
+                2 -> eventRadioButton3SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_right_answer)))
+                3 -> eventRadioButton4SetColor.postValue(Event(RadioData(R.color.green,R.drawable.ic_result_right_answer)))
+            }
+        }
+
     }
 
     fun createTestCard() {
@@ -150,7 +204,7 @@ class TestViewModel : ViewModel() {
 
         when (rightAnswerPosition) {
             0 -> {
-                liveDataCreateCardEvent.postValue(
+                eventCreateCard.postValue(
                     Event(
                         WordsCard(
                             myWords[randomWordNumber].translations[0],
@@ -164,7 +218,7 @@ class TestViewModel : ViewModel() {
                 )
             }
             1 -> {
-                liveDataCreateCardEvent.postValue(
+                eventCreateCard.postValue(
                     Event(
                         WordsCard(
                             words[(0 until words.size).random()],
@@ -178,7 +232,7 @@ class TestViewModel : ViewModel() {
                 )
             }
             2 -> {
-                liveDataCreateCardEvent.postValue(
+                eventCreateCard.postValue(
                     Event(
                         WordsCard(
                             words[(0 until words.size).random()],
@@ -192,7 +246,7 @@ class TestViewModel : ViewModel() {
                 )
             }
             3 -> {
-                liveDataCreateCardEvent.postValue(
+                eventCreateCard.postValue(
                     Event(
                         WordsCard(
                             words[(0 until words.size).random()],
@@ -211,7 +265,6 @@ class TestViewModel : ViewModel() {
     private fun initMyLists() {
         initAllWords()
     }
-
 
 
     private fun initMyRussianWords() {
@@ -355,7 +408,6 @@ class TestViewModel : ViewModel() {
     }
 
 
-
     private fun initAllWords() {
         for (i in 0 until addedWordsList.size) {
             if (addedWordsList[i].translationsOfNoun != EmptyField) {
@@ -387,9 +439,6 @@ class TestViewModel : ViewModel() {
             }
 
             if (addedWordsList[i].translationsOfAdjective != EmptyField) {
-
-                println("addedWordsList[$i].translationsOfAdjective: ${addedWordsList[i].translationsOfAdjective}")
-
                 myAdjectivesRu.add(
                     MyAddedWord(
                         addedWordsList[i].textOrig,
@@ -398,11 +447,6 @@ class TestViewModel : ViewModel() {
                 )
             }
         }
-
-        println("myNouns test: ${myNounsRu}")
-        println("myVerbs test: ${myVerbsRu}")
-        println("myAdverbs test: ${myAdverbsRu}")
-        println("myAdjectives test: ${myAdjectivesRu}")
     }
 
 

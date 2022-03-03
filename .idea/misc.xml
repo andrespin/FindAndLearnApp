@@ -5,26 +5,43 @@
       <map>
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.13425925925925927" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable-v24/ic_settings.xml" value="0.1" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/back_back_my_lists_green.xml" value="0.2078125" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/back_btn_check_and_next.xml" value="0.190625" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/back_btn_result.xml" value="0.190625" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/back_my_lists.xml" value="0.14629629629629629" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/back_radio_group.xml" value="0.190625" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/back_search_view.xml" value="0.2078125" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_arrow_down.xml" value="0.14629629629629629" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_arrow_left.xml" value="0.14629629629629629" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_attention_triangle.xml" value="0.1921875" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_back_arrow.xml" value="0.1824074074074074" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_back_branches.xml" value="0.1824074074074074" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_back_cancel.xml" value="0.1921875" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_back_checked.xml" value="0.1921875" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_back_delete.xml" value="0.1921875" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_back_not_checked.xml" value="0.1824074074074074" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_book_launcher_foreground.xml" value="0.15092592592592594" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_books.xml" value="0.19375" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_cancel.xml" value="0.15092592592592594" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_checked_back.xml" value="0.2078125" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_click_to_get_info.xml" value="0.1925925925925926" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_corel_books.xml" value="0.19375" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_delete.xml" value="0.15092592592592594" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_dictionary.xml" value="0.13796296296296295" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_file_add_to_list.xml" value="0.15092592592592594" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_happy_smile.xml" value="0.20185185185185187" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.13425925925925927" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.15092592592592594" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_list.xml" value="0.13796296296296295" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_not_checked_back.xml" value="0.2078125" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_open_my_lists.xml" value="0.15092592592592594" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_plus.xml" value="0.1921875" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_shift.xml" value="0.1" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_test.xml" value="0.13796296296296295" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_tick.xml" value="0.1921875" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_toolbal_background.xml" value="0.13333333333333333" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_toolbar_back.xml" value="0.1921875" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/ic_words_manager.xml" value="0.190625" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/drawable/oval.xml" value="0.1921875" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/custom_dialog.xml" value="0.20559610705596107" />
@@ -35,19 +52,25 @@
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_about_app.xml" value="0.3111111111111111" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_bottom_nav.xml" value="0.16666666666666666" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_dictionary.xml" value="0.22" />
-        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_eng_words.xml" value="0.14666666666666667" />
-        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_rus_words.xml" value="0.22" />
-        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_settings.xml" value="0.3333333333333333" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_eng_words.xml" value="0.1518987341772152" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_my_lists.xml" value="0.22" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_result.xml" value="0.22" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_rus_words.xml" value="0.14666666666666667" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_select_test.xml" value="0.10666666666666667" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_settings.xml" value="0.3" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_test.xml" value="0.22" />
-        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_view_pager.xml" value="0.13333333333333333" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_view_pager.xml" value="0.1" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_word.xml" value="0.22" />
-        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_words_manager.xml" value="0.13451086956521738" />
-        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/item_recyclerview_fragment_wordsmanager.xml" value="0.3333333333333333" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_word_test.xml" value="0.1" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_words.xml" value="0.13333333333333333" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/fragment_words_manager.xml" value="0.1" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/item_recyclerview_fragment_wordsmanager.xml" value="0.1" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/recyclerview_word_lists_item.xml" value="0.22" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/settings_api_key.xml" value="0.17604166666666668" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/settings_app.xml" value="0.17604166666666668" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/layout/settings_layout.xml" value="0.16666666666666666" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/menu/buttom_nav.xml" value="0.14666666666666667" />
-        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/menu/toolbar.xml" value="0.19166666666666668" />
+        <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/menu/toolbar.xml" value="0.22" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/menu/toolbar_return.xml" value="0.17291666666666666" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/mipmap-anydpi-v26/ic_book_launcher.xml" value="0.1" />
         <entry key="..\:/0Career/FindAndLearnApp/app/src/main/res/mipmap-anydpi-v26/ic_book_launcher_round.xml" value="0.1425925925925926" />
